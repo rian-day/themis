@@ -13,3 +13,7 @@ spring:
         max-request-size: 10Mb
 logging:
   config: classpath:logback.xml
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: tk.mapper.model.mapper
