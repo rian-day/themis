@@ -107,6 +107,12 @@
 			<resource>
 				<directory>src/main/resources/config</directory>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
 			<!-- ********************** 编译时加入mapper.xml ********************** -->
 			<resource>
 				<directory>src/main/java/betahouse/model/mapper</directory>
