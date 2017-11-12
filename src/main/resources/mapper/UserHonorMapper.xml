@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="betahouse.model.mapper.UserHonorMapper">
+  <resultMap id="BaseResultMap" type="betahouse.model.po.UserHonor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="honor_name" jdbcType="VARCHAR" property="honorName" />
+    <result column="honor_score" jdbcType="DOUBLE" property="honorScore" />
+    <result column="honor_lv" jdbcType="INTEGER" property="honorLv" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_honor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="betahouse.model.po.UserHonor">
+    insert into user_honor (id, user_id, honor_name, 
+      honor_score, honor_lv, term
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{honorName,jdbcType=VARCHAR}, 
+      #{honorScore,jdbcType=DOUBLE}, #{honorLv,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="betahouse.model.po.UserHonor">
+    update user_honor
+    set user_id = #{userId,jdbcType=INTEGER},
+      honor_name = #{honorName,jdbcType=VARCHAR},
+      honor_score = #{honorScore,jdbcType=DOUBLE},
+      honor_lv = #{honorLv,jdbcType=INTEGER},
+      term = #{term,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, honor_name, honor_score, honor_lv, term
+    from user_honor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, honor_name, honor_score, honor_lv, term
+    from user_honor
+  </select>
+</mapper>

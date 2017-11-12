@@ -142,7 +142,7 @@
         </javaClientGenerator>
 
         <table tableName="ip" domainObjectName="Ip"/>
-        <!--<table tableName="b_%"/>-->
+        <!--<table tableName="%"/>-->
 
 
         <!-- 选择一个table来生成相关文件，可以有一个或多个table，必须要有table元素

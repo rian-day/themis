@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="betahouse.model.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="betahouse.model.po.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="entrance_time" jdbcType="VARCHAR" property="entranceTime" />
+    <result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+    <result column="political" jdbcType="VARCHAR" property="political" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="betahouse.model.po.User">
+    insert into user (id, real_name, school_id, 
+      gender, major_id, class_id, 
+      photo, entrance_time, dormitory_id, 
+      political)
+    values (#{id,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{majorId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, 
+      #{photo,jdbcType=VARCHAR}, #{entranceTime,jdbcType=VARCHAR}, #{dormitoryId,jdbcType=INTEGER}, 
+      #{political,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="betahouse.model.po.User">
+    update user
+    set real_name = #{realName,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=INTEGER},
+      class_id = #{classId,jdbcType=INTEGER},
+      photo = #{photo,jdbcType=VARCHAR},
+      entrance_time = #{entranceTime,jdbcType=VARCHAR},
+      dormitory_id = #{dormitoryId,jdbcType=INTEGER},
+      political = #{political,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, real_name, school_id, gender, major_id, class_id, photo, entrance_time, 
+    dormitory_id, political
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, real_name, school_id, gender, major_id, class_id, photo, entrance_time, 
+    dormitory_id, political
+    from user
+  </select>
+</mapper>

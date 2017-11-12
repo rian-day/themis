@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="betahouse.model.mapper.UserVolunteerMapper">
+  <resultMap id="BaseResultMap" type="betahouse.model.po.UserVolunteer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="volunteer_name" jdbcType="VARCHAR" property="volunteerName" />
+    <result column="volunteer_date" jdbcType="VARCHAR" property="volunteerDate" />
+    <result column="volunteer_time" jdbcType="DOUBLE" property="volunteerTime" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_volunteer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="betahouse.model.po.UserVolunteer">
+    insert into user_volunteer (id, user_id, volunteer_name, 
+      volunteer_date, volunteer_time, comment, 
+      term)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{volunteerName,jdbcType=VARCHAR}, 
+      #{volunteerDate,jdbcType=VARCHAR}, #{volunteerTime,jdbcType=DOUBLE}, #{comment,jdbcType=VARCHAR}, 
+      #{term,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="betahouse.model.po.UserVolunteer">
+    update user_volunteer
+    set user_id = #{userId,jdbcType=INTEGER},
+      volunteer_name = #{volunteerName,jdbcType=VARCHAR},
+      volunteer_date = #{volunteerDate,jdbcType=VARCHAR},
+      volunteer_time = #{volunteerTime,jdbcType=DOUBLE},
+      comment = #{comment,jdbcType=VARCHAR},
+      term = #{term,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, volunteer_name, volunteer_date, volunteer_time, comment, term
+    from user_volunteer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, volunteer_name, volunteer_date, volunteer_time, comment, term
+    from user_volunteer
+  </select>
+</mapper>

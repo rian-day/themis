@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="betahouse.model.mapper.UserOfficeMapper">
+  <resultMap id="BaseResultMap" type="betahouse.model.po.UserOffice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="office_name" jdbcType="VARCHAR" property="officeName" />
+    <result column="office_lv" jdbcType="INTEGER" property="officeLv" />
+    <result column="start_date" jdbcType="VARCHAR" property="startDate" />
+    <result column="end_date" jdbcType="VARCHAR" property="endDate" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_office
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="betahouse.model.po.UserOffice">
+    insert into user_office (id, user_id, office_name, 
+      office_lv, start_date, end_date, 
+      result, comment, term
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{officeName,jdbcType=VARCHAR}, 
+      #{officeLv,jdbcType=INTEGER}, #{startDate,jdbcType=VARCHAR}, #{endDate,jdbcType=VARCHAR}, 
+      #{result,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{term,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="betahouse.model.po.UserOffice">
+    update user_office
+    set user_id = #{userId,jdbcType=INTEGER},
+      office_name = #{officeName,jdbcType=VARCHAR},
+      office_lv = #{officeLv,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=VARCHAR},
+      end_date = #{endDate,jdbcType=VARCHAR},
+      result = #{result,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      term = #{term,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, office_name, office_lv, start_date, end_date, result, comment, 
+    term
+    from user_office
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, office_name, office_lv, start_date, end_date, result, comment, 
+    term
+    from user_office
+  </select>
+</mapper>

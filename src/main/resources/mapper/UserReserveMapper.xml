@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="betahouse.model.mapper.UserReserveMapper">
+  <resultMap id="BaseResultMap" type="betahouse.model.po.UserReserve">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="cause" jdbcType="VARCHAR" property="cause" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_reserve
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="betahouse.model.po.UserReserve">
+    insert into user_reserve (id, user_id, cause, 
+      score, term)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{cause,jdbcType=VARCHAR}, 
+      #{score,jdbcType=DOUBLE}, #{term,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="betahouse.model.po.UserReserve">
+    update user_reserve
+    set user_id = #{userId,jdbcType=INTEGER},
+      cause = #{cause,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      term = #{term,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, cause, score, term
+    from user_reserve
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, cause, score, term
+    from user_reserve
+  </select>
+</mapper>
