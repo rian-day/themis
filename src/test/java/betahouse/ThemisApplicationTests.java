@@ -22,8 +22,8 @@ public class ThemisApplicationTests {
 	public void dbTest(){
 		SqlSession sqlSession= MybatisUtil.getSqlSession();
 		String statement=
-				"betahouse.model.mapper.UserMapper.selectAllInfoByPrimaryKey";
-		User user =sqlSession.selectOne(statement,1);
+				"betahouse.model.mapper.UserMapper.selectAllInfoBySchoolId";
+		User user =sqlSession.selectOne(statement,16905413);
 		sqlSession.close();
 		System.out.println(user.getMajor().getMajorName());
 	}

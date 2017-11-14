@@ -15,4 +15,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectAllInfoByPrimaryKey(Integer id);
+
+    User selectAllInfoBySchoolId(Integer schoolId);
 }

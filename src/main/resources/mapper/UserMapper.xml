@@ -21,7 +21,6 @@
     <result column="gender" jdbcType="VARCHAR" property="gender" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
     <result column="entrance_time" jdbcType="VARCHAR" property="entranceTime" />
-    <result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
     <result column="political" jdbcType="VARCHAR" property="political" />
     <association property="dormitory" javaType="betahouse.model.po.Dormitory">
       <id property="id" column="id"/>
@@ -36,7 +35,7 @@
     </association>
     <association property="uclass" javaType="betahouse.model.po.Class">
       <id property="id" column="id" jdbcType="INTEGER"/>
-      <result property="classNum" column="calss_num"/>
+      <result property="classNum" column="class_num"/>
       <result property="className" column="class_name"/>
       <association property="major" javaType="betahouse.model.po.Major">
         <id property="id" column="id" jdbcType="INTEGER"/>
@@ -44,28 +43,28 @@
         <result property="year" column="year"/>
       </association>
     </association>
-    <collection property="userActivities" ofType="betahouse.model.po.UserActivity">
-      <id property="id" column="id"/>
+    <collection property="userActivities" javaType="list" ofType="betahouse.model.po.UserActivity">
+      <id property="id" column="ua_id"/>
       <result property="activityName" column="activity_name" jdbcType="VARCHAR"/>
       <result property="activityDate" column="activity_date" jdbcType="VARCHAR"/>
-      <result property="comment" column="commnt" jdbcType="VARCHAR"/>
+      <result property="comment" column="comment" jdbcType="VARCHAR"/>
       <result property="term" column="term" jdbcType="INTEGER"/>
     </collection>
     <collection property="userCleans" ofType="betahouse.model.po.UserClean">
-      <id property="id" column="id"/>
+      <id property="id" column="uc_id"/>
       <result property="checkDate" column="check_date" jdbcType="VARCHAR"/>
       <result property="score" column="score" />
       <result property="term" column="term" jdbcType="INTEGER"/>
     </collection>
     <collection property="userHonors" ofType="betahouse.model.po.UserHonor">
-      <id property="id" column="id"/>
+      <id property="id" column="uh_id"/>
       <result property="honorName" column="honor_name"/>
       <result property="honorScore" column="honor_score"/>
       <result property="honorLv" column="honor_lv"/>
       <result property="term" column="term"/>
     </collection>
     <collection property="userOffices" ofType="betahouse.model.po.UserOffice">
-      <id property="id" column="id"/>
+      <id property="id" column="uo_id"/>
       <result property="officeName" column="office_name"/>
       <result property="officeLv" column="office_lv"/>
       <result property="startDate" column="start_date"/>
@@ -75,7 +74,7 @@
       <result property="term" column="term"/>
     </collection>
     <collection property="userPractices" ofType="betahouse.model.po.UserPractice">
-      <id property="id" column="id"/>
+      <id property="id" column="up_id"/>
       <result property="practiceName" column="practice_name"/>
       <result property="practiceDate" column="practice_date"/>
       <result property="result" column="result"/>
@@ -83,20 +82,20 @@
       <result property="term" column="term"/>
     </collection>
     <collection property="userReserves" ofType="betahouse.model.po.UserReserve">
-      <id property="id" column="id"/>
+      <id property="id" column="ur_id"/>
       <result property="cause" column="cause"/>
       <result property="score" column="score"/>
       <result property="term" column="term"/>
     </collection>
     <collection property="userSkills" ofType="betahouse.model.po.UserSkill">
-      <id property="id" column="id"/>
+      <id property="id" column="us_id"/>
       <result property="skillLv" column="skill_lv"/>
       <result property="skillName" column="skill_name"/>
       <result property="skillScore" column="skill_score"/>
       <result property="term" column="term"/>
     </collection>
     <collection property="userVolunteers" ofType="betahouse.model.po.UserVolunteer">
-      <id property="id" column="id"/>
+      <id property="id" column="uv_id"/>
       <result property="volunteerName" column="volunteer_name"/>
       <result property="volunteerDate" column="volunteer_date"/>
       <result property="volunteerTime" column="volunteer_time"/>
@@ -151,20 +150,23 @@
 
   <select id="selectAllInfoByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
     SELECT
-/*      u.id AS id,
-      u.real_name AS real_name,
-      u.school_id AS school_id,
-      u.gender AS gender,
-      m.id AS id,
-      m.major_name AS major_name,
-      m.year AS year*/
-      *
+        *
+        , ua.id ua_id
+        , uc.id uc_id
+        , uh.id uh_id
+        , uo.id uo_id
+        , up.id up_id
+        , ur.id ur_id
+        , us.id us_id
+        , uv.id uv_id
     FROM
       user u
         left outer join major m
           on u.major_id = m.id
         left outer join class c
           on u.class_id = c.id
+        left outer join dormitory d
+          on u.dormitory_id = d.id
         left outer join user_activity ua
           on ua.user_id = u.id
         left outer join user_clean uc
@@ -185,4 +187,44 @@
       u.id= #{id,jdbcType=INTEGER}
 
   </select>
+
+    <select id="selectAllInfoBySchoolId" parameterType="java.lang.Integer" resultMap="AllResultMap">
+        SELECT
+        *
+        , ua.id ua_id
+        , uc.id uc_id
+        , uh.id uh_id
+        , uo.id uo_id
+        , up.id up_id
+        , ur.id ur_id
+        , us.id us_id
+        , uv.id uv_id
+        FROM
+        user u
+        left outer join major m
+        on u.major_id = m.id
+        left outer join class c
+        on u.class_id = c.id
+        left outer join dormitory d
+        on u.dormitory_id = d.id
+        left outer join user_activity ua
+        on ua.user_id = u.id
+        left outer join user_clean uc
+        on uc.user_id = u.id
+        left outer join user_honor uh
+        on uh.user_id = u.id
+        left outer join user_office uo
+        on uo.user_id = u.id
+        left outer join user_practice up
+        on up.user_id = u.id
+        left outer join user_reserve ur
+        on ur.user_id = u.id
+        left outer join user_skill us
+        on us.user_id = u.id
+        left outer join user_volunteer uv
+        on uv.user_id = u.id
+        WHERE
+        u.school_id= #{schoolId,jdbcType=INTEGER}
+
+    </select>
 </mapper>
