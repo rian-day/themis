@@ -1,7 +1,10 @@
 package betahouse.controller;
 
 import betahouse.core.base.BaseController;
+import betahouse.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,13 +16,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class DemoController extends BaseController{
+    @Autowired
+    public UserService userService;
     @RequestMapping(value = {"", "/", "/index", "view"})
     public String view(HttpServletRequest request, HttpServletResponse response, Model model){
-        model.addAttribute("str","hello world");
+        model.addAttribute("userVo",userService.SelectUserVoById(1));
         return "demo";
     }
     @RequestMapping(value = {"ajax"})
     public String ajax(HttpServletRequest request, HttpServletResponse response, Model model){
-        return ajaxReturn(response,"this is ajaxReturn");
+        userService.SelectUserVoById(1);
+        return ajaxReturn(response,userService.SelectUserVoById(1));
+
     }
 }

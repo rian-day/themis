@@ -5,8 +5,7 @@ public class Class {
 
     private Integer classNum;
 
-    //private Integer majorId;
-    private Major major;
+    private Integer majorId;
 
     private String className;
 
@@ -29,12 +28,12 @@ public class Class {
     }
 
 
-    public Major getMajor() {
-        return major;
+    public Integer getMajorId() {
+        return majorId;
     }
 
-    public void setMajor(Major major) {
-        this.major = major;
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
     }
 
     public String getClassName() {

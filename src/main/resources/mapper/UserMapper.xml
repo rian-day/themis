@@ -14,7 +14,7 @@
     <result column="political" jdbcType="VARCHAR" property="political" />
   </resultMap>
 
-  <resultMap id="AllResultMap" type="betahouse.model.po.User">
+  <resultMap id="AllResultMap" type="betahouse.model.vo.UserVo">
     <id property="id" column="id" jdbcType="INTEGER"/>
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
@@ -224,7 +224,7 @@
         left outer join user_volunteer uv
         on uv.user_id = u.id
         WHERE
-        u.school_id= #{schoolId,jdbcType=INTEGER}
+        u.school_id= #{schoolId,jdbcType=VARCHAR}
 
     </select>
 </mapper>
