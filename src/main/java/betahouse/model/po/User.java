@@ -1,5 +1,6 @@
 package betahouse.model.po;
 
+
 public class User {
     private Integer id;
 
@@ -21,6 +22,10 @@ public class User {
 
     private String political;
 
+
+    //get set
+
+
     public Integer getId() {
         return id;
     }
@@ -34,7 +39,7 @@ public class User {
     }
 
     public void setRealName(String realName) {
-        this.realName = realName == null ? null : realName.trim();
+        this.realName = realName;
     }
 
     public String getSchoolId() {
@@ -42,7 +47,7 @@ public class User {
     }
 
     public void setSchoolId(String schoolId) {
-        this.schoolId = schoolId == null ? null : schoolId.trim();
+        this.schoolId = schoolId;
     }
 
     public String getGender() {
@@ -50,7 +55,7 @@ public class User {
     }
 
     public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
+        this.gender = gender;
     }
 
     public Integer getMajorId() {
@@ -74,7 +79,7 @@ public class User {
     }
 
     public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
+        this.photo = photo;
     }
 
     public String getEntranceTime() {
@@ -82,7 +87,7 @@ public class User {
     }
 
     public void setEntranceTime(String entranceTime) {
-        this.entranceTime = entranceTime == null ? null : entranceTime.trim();
+        this.entranceTime = entranceTime;
     }
 
     public Integer getDormitoryId() {
@@ -98,6 +103,6 @@ public class User {
     }
 
     public void setPolitical(String political) {
-        this.political = political == null ? null : political.trim();
+        this.political = political;
     }
 }

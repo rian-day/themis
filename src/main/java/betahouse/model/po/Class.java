@@ -9,6 +9,8 @@ public class Class {
 
     private String className;
 
+
+
     public Integer getId() {
         return id;
     }
@@ -24,6 +26,7 @@ public class Class {
     public void setClassNum(Integer classNum) {
         this.classNum = classNum;
     }
+
 
     public Integer getMajorId() {
         return majorId;

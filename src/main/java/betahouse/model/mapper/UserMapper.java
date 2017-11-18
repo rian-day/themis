@@ -1,8 +1,11 @@
 package betahouse.model.mapper;
 
+import betahouse.model.vo.UserVo;
 import betahouse.model.po.User;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -13,4 +16,8 @@ public interface UserMapper {
     List<User> selectAll();
 
     int updateByPrimaryKey(User record);
+
+    UserVo selectAllInfoByPrimaryKey(Integer id);
+
+    UserVo selectAllInfoBySchoolId(String schoolId);
 }
