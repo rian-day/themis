@@ -3,6 +3,7 @@ package betahouse;
 import betahouse.core.base.MybatisUtil;
 import betahouse.model.mapper.UserMapper;
 import betahouse.model.po.User;
+import betahouse.model.vo.UserVo;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,14 +26,14 @@ public class ThemisApplicationTests {
 
 	@Test
 	public void dbTest(){
-//		SqlSession sqlSession= MybatisUtil.getSqlSession();
-//		String statement=
-//				"betahouse.model.mapper.UserMapper.selectAllInfoBySchoolId";
-//		User user =sqlSession.selectOne(statement,16905413);
-//		sqlSession.close();
-//		User user=userMapper.selectAllInfoByPrimaryKey(1);
+		SqlSession sqlSession= MybatisUtil.getSqlSession();
+		String statement=
+				"betahouse.model.mapper.UserMapper.selectAllInfoBySchoolId";
+		UserVo user =sqlSession.selectOne(statement,16905413);
+		sqlSession.close();
+//		UserVo user=userMapper.selectAllInfoByPrimaryKey(1);
 //		System.out.println(user.getMajor().getMajorName());
-//		System.out.print(1);
+		System.out.print(1);
 	}
 
 	@Test
@@ -40,7 +41,7 @@ public class ThemisApplicationTests {
 		SqlSession sqlSession= MybatisUtil.getSqlSession();
 		String statement=
 				"betahouse.model.mapper.UserMapper.selectAll";
-		List<User> user =sqlSession.selectList(statement);
+		List<UserVo> user =sqlSession.selectList(statement);
 		sqlSession.close();
 		System.out.println(user.get(0).getRealName());
 	}

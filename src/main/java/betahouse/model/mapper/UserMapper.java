@@ -19,5 +19,5 @@ public interface UserMapper {
 
     UserVo selectAllInfoByPrimaryKey(Integer id);
 
-    UserVo selectAllInfoBySchoolId(String schoolId);
+    UserVo selectAllInfoBySchoolId(Integer schoolId);
 }

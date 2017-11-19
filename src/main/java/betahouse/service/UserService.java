@@ -4,10 +4,7 @@ import betahouse.model.vo.UserVo;
 
 public interface UserService {
 
-    /**
-     *
-     * @param id
-     * @return
-     */
     public UserVo SelectUserVoById(Integer id);
+    public UserVo SelectUserVoBySchoolId(Integer schoolId);
+
 }

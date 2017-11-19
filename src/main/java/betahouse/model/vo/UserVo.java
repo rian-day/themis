@@ -7,18 +7,18 @@ import java.util.List;
 
 public class UserVo {
     private Integer id;
-
+    //名字
     private String realName;
-
+    //学号
     private String schoolId;
-
+    //性别
     private String gender;
 
     //private Integer majorId;
     private Major major; //majorId
 
     //private Integer classId;
-    private Class uclass;
+    private ClassVo uclass;
 
     private String photo;
 
@@ -44,6 +44,7 @@ public class UserVo {
     private List<UserSkill> userSkills;
 
     private List<UserVolunteer> userVolunteers;
+
 
 
     public Integer getId() {
@@ -86,11 +87,11 @@ public class UserVo {
         this.major = major;
     }
 
-    public Class getUclass() {
+    public ClassVo getUclass() {
         return uclass;
     }
 
-    public void setUclass(Class uclass) {
+    public void setUclass(ClassVo uclass) {
         this.uclass = uclass;
     }
 
@@ -189,4 +190,5 @@ public class UserVo {
     public void setUserVolunteers(List<UserVolunteer> userVolunteers) {
         this.userVolunteers = userVolunteers;
     }
+
 }
