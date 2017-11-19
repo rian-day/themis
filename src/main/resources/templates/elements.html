@@ -4,10 +4,10 @@
 		<title>杭州电子科技大学信息工程学院第二课堂成绩单</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../static/css/elements.css" />
-		<script src="../static/js/vue.js"></script>
-		<script src="../static/js/jquery.min.js"></script>
-		<script src="../static/js/jquery.qrcode.min.js"></script>
+		<link rel="stylesheet" href="/css/elements.css" />
+		<script src="/js/vue.js"></script>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/jquery.qrcode.min.js"></script>
 	</head>
 	<body>
 
@@ -38,21 +38,23 @@
 											<div id="office">
 												<table>
 														<tr>
+															<th>任职名称</th>
 															<th>学期</th>
 															<th>开始时间</th>
-															<th>任职名称</th>
+															<th>结束时间</th>
 															<th>任职等级</th>
 															<th>考核结果</th>
 															<th>备注</th>
 														</tr>
 													<tbody>
 														<tr v-for="officepart in officeobject">
-														<td>{{ officepart.semester }}</td>
-														<td>{{ officepart.start }}</td>
-														<td>{{ officepart.name }}</td>
-														<td>{{ officepart.lv }}</td>
+														<td>{{ officepart.officeName }}</td>
+														<td>{{ officepart.term }}</td>
+														<td>{{ officepart.startDate }}</td>
+														<td>{{ officepart.endDate }}</td>
+														<td>{{ officepart.officeLv }}</td>
 														<td>{{ officepart.result }}</td>
-														<td>{{ officepart.comments }}</td>
+														<td>{{ officepart.comment }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -187,7 +189,7 @@
 				<br/>
 				<div id="qr">
 					<div id="code"></div>
-					<img id="qrcode" width="150" width="60" />
+					<img id="qrcode" width="150" height="150" />
 				</div>
 					<footer id="footer">
 						<ul class="copyright">
@@ -198,117 +200,132 @@
 
 			</div>
 		<script>
-			var infoobj = {
-				姓名: 'xxx',
-				学号: '16905515',
-				性别: '男',
-				专业: '计算机科学与技术',
-				入学时间: '2016-10-8',
-				政治面貌: '共青团员'
-			}
-			var officeobj = [{
-				semester: '2017-1',
-				start: '11-19',
-				name: '即刻社社长',
-				lv: '1',
-				result: '优秀',
-				comments: '这是备注'
+            //<![CDATA[
+            var data={
+                "SchoolId":15905631
+            };
+            $.ajax({
+                type: "POST",
+                url: "/getInfo",
+                data: data,
+                dataType:"json",
+                success: function(data){
+                    if(data.status==0){
+//                        alert(data.message);
+						var info = data.data;
+                        var infoobj = {
+                            姓名: info.realName,
+                            学号: info.schoolId,
+                            性别: info.gender,
+                            专业: info.major.majorName,
+                            入学时间: info.entranceTime,
+                            政治面貌: info.political
+                        }
+                        var officeobj = info.userOffices;
+                        var activityobj = [{
+                            semester: '2017-1',
+                            start: '11-19',
+                            name: 'betahouse分享会',
+                            comments: '这是备注'
 
-			}]
-			var activityobj = [{
-				semester: '2017-1',
-				start: '11-19',
-				name: 'betahouse分享会',
-				comments: '这是备注'
-
-			}]
-			var practiceobj = [{
-				semester: '2017-1',
-				start: '2017-11-19',
-				name: '中国开源年会',
-				result: '优秀',
-				comments: '这是备注'
-			}]
-			var voluteerobj = [{
-				semester: '2017-1',
-				start: '2017-11-19',
-				name: '谷歌开发者日',
-				duration: '2天',
-				comments: '这是备注'
-			}]
-			var cleanobj = [{
-				semester: '2017-1',
-				start: '11-19',
-				marks: '99'
-			}]
-			var honorobj = [{
-				semester: '2017-1',
-				name: '服务外包一等奖',
-				lv: '1',
-				marks: '6'
-			}]
-			var skillobj = [{
-				semester: '2017-1',
-				name: '创新杯一等奖',
-				lv: '1',
-				marks: '6'
-			}]
-			var info = new Vue({
-				el: '#info',
-				data: {
-					infoobject: infoobj
-				}
-			})
-			var officeobj = new Vue({
-				el: '#office',
-				data: {
-					officeobject: officeobj
-				}
-			})
-			var activity = new Vue({
-				el: '#activity',
-				data: {
-					activityobject: activityobj
-				}
-			})
-			var practice = new Vue({
-				el: '#practice',
-				data: {
-					object: practiceobj
-				}
-			})
-			var voluteer = new Vue({
-				el: '#voluteer',
-				data: {
-					voluteerobject: voluteerobj
-				}
-			})
-			var clean = new Vue({
-				el: '#clean',
-				data: {
-					cleanobject: cleanobj
-				}
-			})
-			var honor = new Vue({
-				el: '#honor',
-				data: {
-					honorobject: honorobj
-				}
-			})
-			var skill = new Vue({
-				el: '#skill',
-				data: {
-					skillobject: skillobj
-				}
-			})
-
-
+                        }]
+                        var practiceobj = [{
+                            semester: '2017-1',
+                            start: '2017-11-19',
+                            name: '中国开源年会',
+                            result: '优秀',
+                            comments: '这是备注'
+                        }]
+                        var voluteerobj = [{
+                            semester: '2017-1',
+                            start: '2017-11-19',
+                            name: '谷歌开发者日',
+                            duration: '2天',
+                            comments: '这是备注'
+                        }]
+                        var cleanobj = [{
+                            semester: '2017-1',
+                            start: '11-19',
+                            marks: '99'
+                        }]
+                        var honorobj = [{
+                            semester: '2017-1',
+                            name: '服务外包一等奖',
+                            lv: '1',
+                            marks: '6'
+                        }]
+                        var skillobj = [{
+                            semester: '2017-1',
+                            name: '创新杯一等奖',
+                            lv: '1',
+                            marks: '6'
+                        }]
+                        var info = new Vue({
+                            el: '#info',
+                            data: {
+                                infoobject: infoobj
+                            }
+                        })
+                        var officeobj = new Vue({
+                            el: '#office',
+                            data: {
+                                officeobject: officeobj
+                            }
+                        })
+                        var activity = new Vue({
+                            el: '#activity',
+                            data: {
+                                activityobject: activityobj
+                            }
+                        })
+                        var practice = new Vue({
+                            el: '#practice',
+                            data: {
+                                object: practiceobj
+                            }
+                        })
+                        var voluteer = new Vue({
+                            el: '#voluteer',
+                            data: {
+                                voluteerobject: voluteerobj
+                            }
+                        })
+                        var clean = new Vue({
+                            el: '#clean',
+                            data: {
+                                cleanobject: cleanobj
+                            }
+                        })
+                        var honor = new Vue({
+                            el: '#honor',
+                            data: {
+                                honorobject: honorobj
+                            }
+                        })
+                        var skill = new Vue({
+                            el: '#skill',
+                            data: {
+                                skillobject: skillobj
+                            }
+                        })
+                    }
+                    else {
+                        alert('wrong');
+                    }
+                },
+                error: function(data){
+                    alert('Error');
+                }
+            });
+            //]]>
 		</script>
 		<script type="text/javascript">
-			var content = 'https://betahouse.us/';
+            //<![CDATA[
+            var content = 'https://betahouse.us/';
  			var qrcode= $('#code').qrcode(content).hide();   
  			var canvas=qrcode.find('canvas').get(0);  
- 			$('#qrcode').attr('src',canvas.toDataURL('image/jpg'))  
+ 			$('#qrcode').attr('src',canvas.toDataURL('image/jpg'))
+            //]]>
 		</script>
 	</body>
 </html>
