@@ -33,7 +33,7 @@
       <result property="majorName" column="major_name"/>
       <result property="year" column="year"/>
     </association>
-    <association property="uclass" javaType="betahouse.model.po.Class">
+    <association property="uclass" javaType="betahouse.model.vo.ClassVo">
       <id property="id" column="id" jdbcType="INTEGER"/>
       <result property="classNum" column="class_num"/>
       <result property="className" column="class_name"/>
