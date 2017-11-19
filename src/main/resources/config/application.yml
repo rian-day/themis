@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/themis?characterEncoding=utf-8&&SSL=false
     username: root
-    password: 
+    password:
   http:
       multipart:
         max-file-size: 10Mb
