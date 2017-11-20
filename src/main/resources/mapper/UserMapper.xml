@@ -109,13 +109,13 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="betahouse.model.po.User">
-    insert into user (id, real_name, school_id, 
-      gender, major_id, class_id, 
-      photo, entrance_time, dormitory_id, 
+    insert into user (id, real_name, school_id,
+      gender, major_id, class_id,
+      photo, entrance_time, dormitory_id,
       political)
-    values (#{id,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=VARCHAR}, #{majorId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, 
-      #{photo,jdbcType=VARCHAR}, #{entranceTime,jdbcType=VARCHAR}, #{dormitoryId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR},
+      #{gender,jdbcType=VARCHAR}, #{majorId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER},
+      #{photo,jdbcType=VARCHAR}, #{entranceTime,jdbcType=VARCHAR}, #{dormitoryId,jdbcType=INTEGER},
       #{political,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="betahouse.model.po.User">
