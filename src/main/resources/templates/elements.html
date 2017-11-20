@@ -29,7 +29,7 @@
 								<!-- Text -->
 										<h2>个人信息</h2>
 											<ul id="info">
-												<li v-for="(value, key) in infoobject">
+												<li v-for="(value, key) in info">
 													{{ key }}:{{ value }}
 												</li>
 											</ul>
@@ -47,14 +47,14 @@
 															<th>备注</th>
 														</tr>
 													<tbody>
-														<tr v-for="officepart in officeobject">
-														<td>{{ officepart.officeName }}</td>
-														<td>{{ officepart.term }}</td>
-														<td>{{ officepart.startDate }}</td>
-														<td>{{ officepart.endDate }}</td>
-														<td>{{ officepart.officeLv }}</td>
-														<td>{{ officepart.result }}</td>
-														<td>{{ officepart.comment }}</td>
+														<tr v-for="office in offices">
+														<td>{{ office.officeName }}</td>
+														<td>{{ office.term }}</td>
+														<td>{{ office.startDate }}</td>
+														<td>{{ office.endDate }}</td>
+														<td>{{ office.officeLv }}</td>
+														<td>{{ office.result }}</td>
+														<td>{{ office.comment }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -70,11 +70,11 @@
 															<th>备注</th>
 														</tr>
 													<tbody>
-														<tr v-for="activitypart in activityobject">
-														<td>{{ activitypart.semester }}</td>
-														<td>{{ activitypart.start }}</td>
-														<td>{{ activitypart.name }}</td>
-														<td>{{ activitypart.comments }}</td>
+														<tr v-for="activity in activities">
+														<td>{{ activity.term }}</td>
+														<td>{{ activity.activityDate }}</td>
+														<td>{{ activity.activityName }}</td>
+														<td>{{ activity.comment }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -91,12 +91,12 @@
 															<th>备注</th>
 														</tr>
 													<tbody>
-														<tr v-for="item in object">
-														<td>{{ item.semester }}</td>
-														<td>{{ item.start }}</td>
-														<td>{{ item.name }}</td>
-														<td>{{ item.result }}</td>
-														<td>{{ item.comments }}</td>
+														<tr v-for="practice in practices">
+														<td>{{ practice.term }}</td>
+														<td>{{ practice.practiceDate }}</td>
+														<td>{{ practice.practiceName }}</td>
+														<td>{{ practice.result }}</td>
+														<td>{{ practice.comment }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -113,12 +113,12 @@
 															<th>备注</th>
 														</tr>
 													<tbody>
-														<tr v-for="voluteerpart in voluteerobject">
-														<td>{{ voluteerpart.semester }}</td>
-														<td>{{ voluteerpart.start }}</td>
-														<td>{{ voluteerpart.name }}</td>
-														<td>{{ voluteerpart.duration }}</td>
-														<td>{{ voluteerpart.comments }}</td>
+														<tr v-for="voluteer in voluteers">
+														<td>{{ voluteer.term }}</td>
+														<td>{{ voluteer.voluteerDate }}</td>
+														<td>{{ voluteer.voluteerName }}</td>
+														<td>{{ voluteer.voluteerTime }}</td>
+														<td>{{ voluteer.comment }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -133,10 +133,10 @@
 															<th>分数</th>
 														</tr>
 													<tbody>
-														<tr v-for="cleanpart in cleanobject">
-														<td>{{ cleanpart.semester }}</td>
-														<td>{{ cleanpart.start }}</td>
-														<td>{{ cleanpart.marks }}</td>
+														<tr v-for="clean in cleans">
+														<td>{{ clean.term }}</td>
+														<td>{{ clean.checkDate }}</td>
+														<td>{{ clean.score }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -152,11 +152,11 @@
 															<th>荣誉加分</th>
 														</tr>
 													<tbody>
-														<tr v-for="honorpart in honorobject">
-														<td>{{ honorpart.semester }}</td>
-														<td>{{ honorpart.name }}</td>
-														<td>{{ honorpart.lv }}</td>
-														<td>{{ honorpart.marks }}</td>
+														<tr v-for="honor in honors">
+														<td>{{ honor.term }}</td>
+														<td>{{ honor.honorName }}</td>
+														<td>{{ honor.honorLv }}</td>
+														<td>{{ honor.honorScore }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -172,11 +172,11 @@
 															<th>技能加分</th>
 														</tr>
 													<tbody>
-														<tr v-for="skillpart in skillobject">
-														<td>{{ skillpart.semester }}</td>
-														<td>{{ skillpart.name }}</td>
-														<td>{{ skillpart.lv }}</td>
-														<td>{{ skillpart.marks }}</td>
+														<tr v-for="skill in skills">
+														<td>{{ skill.term }}</td>
+														<td>{{ skill.skillName }}</td>
+														<td>{{ skill.skillLv }}</td>
+														<td>{{ skill.skillScore }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -199,8 +199,12 @@
 
 
 			</div>
-		<script>
-            //<![CDATA[
+		<script type="text/javascript">
+      //<![CDATA[
+			var content = 'https://betahouse.us/';
+ 			var qrcode= $('#code').qrcode(content).hide();   
+ 			var canvas=qrcode.find('canvas').get(0);  
+ 			$('#qrcode').attr('src',canvas.toDataURL('image/jpg'))  
             var data={
                 "SchoolId":15905631
             };
@@ -222,90 +226,58 @@
                             政治面貌: info.political
                         }
                         var officeobj = info.userOffices;
-                        var activityobj = [{
-                            semester: '2017-1',
-                            start: '11-19',
-                            name: 'betahouse分享会',
-                            comments: '这是备注'
-
-                        }]
-                        var practiceobj = [{
-                            semester: '2017-1',
-                            start: '2017-11-19',
-                            name: '中国开源年会',
-                            result: '优秀',
-                            comments: '这是备注'
-                        }]
-                        var voluteerobj = [{
-                            semester: '2017-1',
-                            start: '2017-11-19',
-                            name: '谷歌开发者日',
-                            duration: '2天',
-                            comments: '这是备注'
-                        }]
-                        var cleanobj = [{
-                            semester: '2017-1',
-                            start: '11-19',
-                            marks: '99'
-                        }]
-                        var honorobj = [{
-                            semester: '2017-1',
-                            name: '服务外包一等奖',
-                            lv: '1',
-                            marks: '6'
-                        }]
-                        var skillobj = [{
-                            semester: '2017-1',
-                            name: '创新杯一等奖',
-                            lv: '1',
-                            marks: '6'
-                        }]
+                        var activityobj = info.userActivities;
+                        var practiceobj = info.userPractices;
+                        var voluteerobj = info.userVoluteers;
+                        var cleanobj = info.userCleans;
+                        var honorobj = info.userHonors;
+                        var skillobj = info.userSkills;
                         var info = new Vue({
                             el: '#info',
                             data: {
-                                infoobject: infoobj
+                                info: infoobj
                             }
                         })
                         var officeobj = new Vue({
                             el: '#office',
                             data: {
-                                officeobject: officeobj
+                                offices: officeobj
                             }
                         })
                         var activity = new Vue({
                             el: '#activity',
                             data: {
-                                activityobject: activityobj
+                                activities: activityobj
                             }
                         })
                         var practice = new Vue({
                             el: '#practice',
                             data: {
-                                object: practiceobj
+                                practices: practiceobj
                             }
                         })
                         var voluteer = new Vue({
                             el: '#voluteer',
                             data: {
-                                voluteerobject: voluteerobj
+                                voluteers: voluteerobj
                             }
                         })
                         var clean = new Vue({
                             el: '#clean',
                             data: {
-                                cleanobject: cleanobj
+                                cleans: cleanobj
                             }
                         })
                         var honor = new Vue({
                             el: '#honor',
                             data: {
-                                honorobject: honorobj
+                                honors: honorobj
                             }
                         })
                         var skill = new Vue({
                             el: '#skill',
                             data: {
-                                skillobject: skillobj
+                                skills: skillobj
                             }
                         })
                     }
@@ -317,14 +289,6 @@
                     alert('Error');
                 }
             });
-            //]]>
-		</script>
-		<script type="text/javascript">
-            //<![CDATA[
-            var content = 'https://betahouse.us/';
- 			var qrcode= $('#code').qrcode(content).hide();   
- 			var canvas=qrcode.find('canvas').get(0);  
- 			$('#qrcode').attr('src',canvas.toDataURL('image/jpg'))
             //]]>
 		</script>
 	</body>
