@@ -115,9 +115,9 @@
 													<tbody>
 														<tr v-for="voluteer in voluteers">
 														<td>{{ voluteer.term }}</td>
-														<td>{{ voluteer.voluteerDate }}</td>
-														<td>{{ voluteer.voluteerName }}</td>
-														<td>{{ voluteer.voluteerTime }}</td>
+														<td>{{ voluteer.volunteerDate }}</td>
+														<td>{{ voluteer.volunteerName }}</td>
+														<td>{{ voluteer.volunteerTime }}</td>
 														<td>{{ voluteer.comment }}</td>
 														</tr>
 													</tbody>
@@ -228,10 +228,13 @@
                         var officeobj = info.userOffices;
                         var activityobj = info.userActivities;
                         var practiceobj = info.userPractices;
-                        var voluteerobj = info.userVoluteers;
+                        var voluteerobj = info.userVolunteers;
                         var cleanobj = info.userCleans;
                         var honorobj = info.userHonors;
                         var skillobj = info.userSkills;
+                        console.log(officeobj);
+                        console.log(activityobj);
+                        console.log(voluteerobj);
                         var info = new Vue({
                             el: '#info',
                             data: {
