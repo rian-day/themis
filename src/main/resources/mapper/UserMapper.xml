@@ -150,42 +150,42 @@
 
   <select id="selectAllInfoByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
     SELECT
-        *
-        , ua.id ua_id
-        , uc.id uc_id
-        , uh.id uh_id
-        , uo.id uo_id
-        , up.id up_id
-        , ur.id ur_id
-        , us.id us_id
-        , uv.id uv_id
-        , uc.score uc_score
-        , ur.score ur_score
-      FROM
-        user u
-        left outer join major m
-        on u.major_id = m.id
-        left outer join class c
-        on u.class_id = c.id
-        left outer join dormitory d
-        on u.dormitory_id = d.id
-        left outer join user_activity ua
-        on ua.user_id = u.id
-        left outer join user_clean uc
-        on uc.user_id = u.id
-        left outer join user_honor uh
-        on uh.user_id = u.id
-        left outer join user_office uo
-        on uo.user_id = u.id
-        left outer join user_practice up
-        on up.user_id = u.id
-        left outer join user_reserve ur
-        on ur.user_id = u.id
-        left outer join user_skill us
-        on us.user_id = u.id
-        left outer join user_volunteer uv
-        on uv.user_id = u.id
-      WHERE
+      *
+      , ua.id ua_id , ua.term ua_term
+      , uc.id uc_id , uc.score uc_score , uc.term uc_term
+      , uh.id uh_id , uh.term uh_term
+      , uo.id uo_id , uo.term uo_term
+      , up.id up_id , up.term up_term
+      , ur.id ur_id , ur.score ur_score , ur.term ur_term
+      , us.id us_id , us.term us_term
+      , uv.id uv_id , uv.term uv_term
+
+    FROM
+      user u
+      left outer join major m
+      on u.major_id = m.id
+      left outer join class c
+      on u.class_id = c.id
+      left outer join dormitory d
+      on u.dormitory_id = d.id
+      left outer join user_activity ua
+      on ua.user_id = u.id
+      left outer join user_clean uc
+      on uc.user_id = u.id
+      left outer join user_honor uh
+      on uh.user_id = u.id
+      left outer join user_office uo
+      on uo.user_id = u.id
+      left outer join user_practice up
+      on up.user_id = u.id
+      left outer join user_reserve ur
+      on ur.user_id = u.id
+      left outer join user_skill us
+      on us.user_id = u.id
+      left outer join user_volunteer uv
+      on uv.user_id = u.id
+    WHERE
+
       u.id= #{id,jdbcType=INTEGER}
 
   </select>
