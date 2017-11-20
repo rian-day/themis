@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>杭州电子科技大学信息工程学院第二课表成绩单</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../static/css/login.css" />
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+						<h1>用户登录</h1>
+						<form method="post" action="demo.jsp" id="form" name="myform">
+							<div class="field">
+								<input type="text" name="username" id="username" placeholder="用户名" />
+							</div>
+							<div class="field">
+								<input type="password" name="password" id="password" placeholder="密码" />
+							</div>
+							<ul class="actions">
+								<li><a href="javascript:document.myform.submit();" class="button">登录</a></li>
+							</ul>
+						</form>
+						<hr />
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="copyright">
+							<li>&copy;</li><li>Design: <a href="http://betahouse.us">betahouse</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+	</body>
+</html>
