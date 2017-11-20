@@ -26,13 +26,13 @@ public class ThemisApplicationTests {
 
 	@Test
 	public void dbTest(){
-		SqlSession sqlSession= MybatisUtil.getSqlSession();
-		String statement=
-				"betahouse.model.mapper.UserMapper.selectAllInfoBySchoolId";
-		UserVo user =sqlSession.selectOne(statement,16905413);
-		sqlSession.close();
-//		UserVo user=userMapper.selectAllInfoByPrimaryKey(1);
-//		System.out.println(user.getMajor().getMajorName());
+//		SqlSession sqlSession= MybatisUtil.getSqlSession();
+//		String statement=
+//				"betahouse.model.mapper.UserMapper.selectAllInfoBySchoolId";
+//		UserVo user =sqlSession.selectOne(statement,16905413);
+//		sqlSession.close();
+		UserVo user=userMapper.selectAllInfoBySchoolId(16905413);
+		System.out.println(user.getMajor().getMajorName());
 		System.out.print(1);
 	}
 
