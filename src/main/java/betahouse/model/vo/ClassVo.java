@@ -1,6 +1,7 @@
 package betahouse.model.vo;
 
 import betahouse.model.po.Major;
+import betahouse.model.po.Class;
 
 public class ClassVo {
     private Integer id;
@@ -10,6 +11,12 @@ public class ClassVo {
     private Major major;
 
     private String className;
+
+    public ClassVo(Class ucalss){
+        this.id = ucalss.getId();
+        this.className = ucalss.getClassName();
+        this.classNum = ucalss.getClassNum();
+    }
 
     public Integer getId() {
         return id;

@@ -35,8 +35,21 @@
     from user_skill
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, skill_lv, skill_name, skill_score, term
+    from user_skill
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, user_id, skill_lv, skill_name, skill_score, term
     from user_skill
+  </select>
+
+  <select id="selectByUserIdAndTerm" resultMap="BaseResultMap">
+    select id, user_id, skill_lv, skill_name, skill_score, term
+    from user_skill
+    where user_id = #{arg0,jdbcType=INTEGER}
+    and term = #{arg1}
   </select>
 </mapper>

@@ -23,22 +23,22 @@
     <result column="entrance_time" jdbcType="VARCHAR" property="entranceTime" />
     <result column="political" jdbcType="VARCHAR" property="political" />
     <association property="dormitory" javaType="betahouse.model.po.Dormitory">
-      <id property="id" column="id"/>
+      <id property="id" column="d_id"/>
       <result property="building" column="building"/>
       <result property="floor" column="floor"/>
       <result property="room" column="room"/>
     </association>
     <association property="major" javaType="betahouse.model.po.Major">
-      <id property="id" column="id"/>
+      <id property="id" column="m_id"/>
       <result property="majorName" column="major_name"/>
       <result property="year" column="year"/>
     </association>
     <association property="uclass" javaType="betahouse.model.vo.ClassVo">
-      <id property="id" column="id" jdbcType="INTEGER"/>
+      <id property="id" column="c_id" jdbcType="INTEGER"/>
       <result property="classNum" column="class_num"/>
       <result property="className" column="class_name"/>
       <association property="major" javaType="betahouse.model.po.Major">
-        <id property="id" column="id" jdbcType="INTEGER"/>
+        <id property="id" column="m_id" jdbcType="INTEGER"/>
         <result property="majorName" column="major_name"/>
         <result property="year" column="year"/>
       </association>
@@ -47,7 +47,7 @@
       <id property="id" column="ua_id"/>
       <result property="activityName" column="activity_name" jdbcType="VARCHAR"/>
       <result property="activityDate" column="activity_date" jdbcType="VARCHAR"/>
-      <result property="comment" column="comment" jdbcType="VARCHAR"/>
+      <result property="comment" column="ua_comment" jdbcType="VARCHAR"/>
       <result property="term" column="ua_term" jdbcType="INTEGER"/>
     </collection>
     <collection property="userCleans" ofType="betahouse.model.po.UserClean">
@@ -69,16 +69,16 @@
       <result property="officeLv" column="office_lv"/>
       <result property="startDate" column="start_date"/>
       <result property="endDate" column="end_date"/>
-      <result property="result" column="result"/>
-      <result property="comment" column="comment"/>
+      <result property="result" column="uo_result"/>
+      <result property="comment" column="uo_comment"/>
       <result property="term" column="uo_term"/>
     </collection>
     <collection property="userPractices" ofType="betahouse.model.po.UserPractice">
       <id property="id" column="up_id"/>
       <result property="practiceName" column="practice_name"/>
       <result property="practiceDate" column="practice_date"/>
-      <result property="result" column="result"/>
-      <result property="comment" column="comment"/>
+      <result property="result" column="up_result"/>
+      <result property="comment" column="up_comment"/>
       <result property="term" column="up_term"/>
     </collection>
     <collection property="userReserves" ofType="betahouse.model.po.UserReserve">
@@ -99,10 +99,52 @@
       <result property="volunteerName" column="volunteer_name"/>
       <result property="volunteerDate" column="volunteer_date"/>
       <result property="volunteerTime" column="volunteer_time"/>
-      <result property="comment" column="comment"/>
+      <result property="comment" column="uv_comment"/>
       <result property="term" column="uv_term"/>
     </collection>
   </resultMap>
+
+  <sql id="selectByAllTable">
+    SELECT
+      u.id id , u.real_name , u.school_id , u.gender , u.major_id , u.class_id , u.photo , u.entrance_time , u.dormitory_id , u.political
+      , m.id m_id , m.major_name , m.year
+      , c.id c_id , c.class_num , c.major_id , c.class_name
+      , d.id d_id , d.building , d.floor , d.room
+      , ua.id ua_id , ua.term ua_term , ua.activity_name activity_name , ua.activity_date activity_date , ua.comment ua_comment
+      , uc.id uc_id , uc.score uc_score , uc.term uc_term , uc.check_date check_date
+      , uh.id uh_id , uh.honor_name honor_name, uh.honor_score honor_score, uh.honor_lv honor_lv, uh.term uh_term
+      , uo.id uo_id , uo.office_name , uo.office_lv , uo.start_date , uo.end_date , uo.result uo_result, uo.comment uo_comment , uo.term uo_term
+      , up.id up_id , up.term up_term , up.practice_name , up.practice_date , up.result up_result, up.comment up_comment
+      , ur.id ur_id , ur.score ur_score , ur.term ur_term
+      , us.id us_id , us.term us_term , us.skill_lv , us.skill_name , us.skill_score
+      , uv.id uv_id , uv.term uv_term , uv.volunteer_name , uv.volunteer_date , uv.volunteer_time , uv.comment uv_comment
+
+    FROM
+      user u
+
+      left outer join major m
+      on u.major_id = m.id
+      left outer join class c
+      on u.class_id = c.id
+      left outer join dormitory d
+      on u.dormitory_id = d.id
+      left outer join user_activity ua
+      on ua.user_id = u.id
+      left outer join user_clean uc
+      on uc.user_id = u.id
+      left outer join user_honor uh
+      on uh.user_id = u.id
+      left outer join user_office uo
+      on uo.user_id = u.id
+      left outer join user_practice up
+      on up.user_id = u.id
+      left outer join user_reserve ur
+      on ur.user_id = u.id
+      left outer join user_skill us
+      on us.user_id = u.id
+      left outer join user_volunteer uv
+      on uv.user_id = u.id
+  </sql>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
@@ -131,12 +173,12 @@
       political = #{political,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
-    select id, real_name
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="AllResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
       u.id AS id,
       u.real_name AS real_name,
@@ -149,85 +191,23 @@
   </select>
 
   <select id="selectAllInfoByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
-    SELECT
-      *
-      , ua.id ua_id , ua.term ua_term
-      , uc.id uc_id , uc.score uc_score , uc.term uc_term
-      , uh.id uh_id , uh.term uh_term
-      , uo.id uo_id , uo.term uo_term
-      , up.id up_id , up.term up_term
-      , ur.id ur_id , ur.score ur_score , ur.term ur_term
-      , us.id us_id , us.term us_term
-      , uv.id uv_id , uv.term uv_term
-
-    FROM
-      user u
-      left outer join major m
-      on u.major_id = m.id
-      left outer join class c
-      on u.class_id = c.id
-      left outer join dormitory d
-      on u.dormitory_id = d.id
-      left outer join user_activity ua
-      on ua.user_id = u.id
-      left outer join user_clean uc
-      on uc.user_id = u.id
-      left outer join user_honor uh
-      on uh.user_id = u.id
-      left outer join user_office uo
-      on uo.user_id = u.id
-      left outer join user_practice up
-      on up.user_id = u.id
-      left outer join user_reserve ur
-      on ur.user_id = u.id
-      left outer join user_skill us
-      on us.user_id = u.id
-      left outer join user_volunteer uv
-      on uv.user_id = u.id
+    <include refid="selectByAllTable"/>
     WHERE
-
       u.id= #{id,jdbcType=INTEGER}
 
   </select>
 
     <select id="selectAllInfoBySchoolId" parameterType="java.lang.Integer" resultMap="AllResultMap">
-        SELECT
-        *
-        , ua.id ua_id , ua.term ua_term
-        , uc.id uc_id , uc.score uc_score , uc.term uc_term
-        , uh.id uh_id , uh.term uh_term
-        , uo.id uo_id , uo.term uo_term
-        , up.id up_id , up.term up_term
-        , ur.id ur_id , ur.score ur_score , ur.term ur_term
-        , us.id us_id , us.term us_term
-        , uv.id uv_id , uv.term uv_term
-
-        FROM
-        user u
-        left outer join major m
-        on u.major_id = m.id
-        left outer join class c
-        on u.class_id = c.id
-        left outer join dormitory d
-        on u.dormitory_id = d.id
-        left outer join user_activity ua
-        on ua.user_id = u.id
-        left outer join user_clean uc
-        on uc.user_id = u.id
-        left outer join user_honor uh
-        on uh.user_id = u.id
-        left outer join user_office uo
-        on uo.user_id = u.id
-        left outer join user_practice up
-        on up.user_id = u.id
-        left outer join user_reserve ur
-        on ur.user_id = u.id
-        left outer join user_skill us
-        on us.user_id = u.id
-        left outer join user_volunteer uv
-        on uv.user_id = u.id
+        <include refid="selectByAllTable"/>
         WHERE
-        u.school_id= #{schoolId,jdbcType=VARCHAR}
+          u.school_id= #{schoolId,jdbcType=VARCHAR}
 
+    </select>
+  
+    <select id="selectAllInfoListPage" resultMap="AllResultMap">
+       <include refid="selectByAllTable"/>
+    </select>
+    <select id="selectTest" resultMap="BaseResultMap">
+      SELECT * FROM user
     </select>
 </mapper>

@@ -31,8 +31,20 @@
     from user_reserve
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, cause, score, term
+    from user_reserve
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, user_id, cause, score, term
     from user_reserve
+  </select>
+  <select id="selectByUserIdAndTerm" resultMap="BaseResultMap">
+    select id, user_id, cause, score, term
+    from user_reserve
+    where user_id = #{arg0,jdbcType=INTEGER}
+    and term = #{arg1}
   </select>
 </mapper>

@@ -1,8 +1,10 @@
 package betahouse.model.mapper;
 
 import betahouse.model.po.Dormitory;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public interface DormitoryMapper {
     int deleteByPrimaryKey(Integer id);
 

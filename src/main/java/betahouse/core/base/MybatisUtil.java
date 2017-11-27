@@ -11,6 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+/**
+ * 测试Mybtais数据库
+ */
 public class MybatisUtil {
     private static ThreadLocal<SqlSession> threadLocal=new ThreadLocal<>();
     private static SqlSessionFactory sqlSessionFactory;
@@ -50,6 +53,7 @@ public class MybatisUtil {
     }
 
     public static void main(String[] args) {
+        //SqlSession session=MybatisUtil.getSqlSession();
         Connection conn=MybatisUtil.getSqlSession().getConnection();
         System.out.println(conn!=null?"连接成功":"连接失败");
     }

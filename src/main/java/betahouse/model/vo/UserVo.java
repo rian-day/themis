@@ -45,7 +45,19 @@ public class UserVo {
 
     private List<UserVolunteer> userVolunteers;
 
+    public UserVo(User user){
+        this.id=user.getId();
+        this.realName=user.getRealName();
+        this.schoolId=user.getSchoolId();
+        this.gender=user.getGender();
+        this.photo=user.getPhoto();
+        this.entranceTime=user.getEntranceTime();
+        this.political=user.getPolitical();
+    }
 
+    public UserVo(){
+
+    }
 
     public Integer getId() {
         return id;

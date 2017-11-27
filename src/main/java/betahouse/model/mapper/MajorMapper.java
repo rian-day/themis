@@ -1,8 +1,10 @@
 package betahouse.model.mapper;
 
 import betahouse.model.po.Major;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public interface MajorMapper {
     int deleteByPrimaryKey(Integer id);
 

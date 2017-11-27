@@ -20,4 +20,8 @@ public interface UserMapper {
     UserVo selectAllInfoByPrimaryKey(Integer id);
 
     UserVo selectAllInfoBySchoolId(Integer schoolId);
+
+    List<UserVo> selectAllInfoListPage();
+
+    List<User> selectTest();
 }

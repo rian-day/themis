@@ -1,10 +1,16 @@
 package betahouse.model.mapper;
 
 import betahouse.model.po.Admin;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public interface AdminMapper {
     int deleteByPrimaryKey(Integer id);
+
+    Admin selectByUserName(String userName);
+
+    Admin selectByUserEmail(String email);
 
     int insert(Admin record);
 

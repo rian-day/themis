@@ -37,4 +37,16 @@
     select id, username, password, tel, email, power
     from admin
   </select>
+  
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id, username, password, tel, email, power
+    from admin
+    where username = #{userName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByUserEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id, username, password, tel, email, power
+    from admin
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
 </mapper>
