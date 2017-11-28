@@ -6,14 +6,15 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 @Component
 public interface UserOfficeMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(UserOffice record);
+    Integer insert(UserOffice record);
 
     UserOffice selectByPrimaryKey(Integer id);
     List<UserOffice> selectByUserId(Integer userId);
+    List<UserOffice> selectByUserIdAndTerm(Integer userId, Integer term);
 
     List<UserOffice> selectAll();
 
-    int updateByPrimaryKey(UserOffice record);
+    Integer updateByPrimaryKey(UserOffice record);
 }

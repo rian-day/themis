@@ -27,6 +27,11 @@
     from power_1
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByAdminId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, admin_id, class_id
+    from power_1
+    where admin_id = #{admin_id,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, admin_id, class_id
     from power_1

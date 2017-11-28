@@ -33,4 +33,13 @@
     select id, class_num, major_id, class_name
     from class
   </select>
+  <select id="selectPrimaryKeyInArr" resultMap="BaseResultMap">
+    select id, class_num, major_id, class_name
+    from class
+    where 1 = 1
+    and id in
+    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+     #{item}
+    </foreach>
+  </select>
 </mapper>

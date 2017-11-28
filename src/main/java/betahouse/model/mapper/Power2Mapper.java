@@ -11,7 +11,7 @@ public interface Power2Mapper {
     int insert(Power2 record);
 
     Power2 selectByPrimaryKey(Integer id);
-    
+    List<Power2> selectByAdminId(Integer AdminId);
 
     List<Power2> selectAll();
 

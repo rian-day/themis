@@ -7,15 +7,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 @Component
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    Integer insert(User record);
 
     User selectByPrimaryKey(Integer id);
 
+    List<User> selectByClasses(Integer []classId);
+    List<User> selectByMajors(Integer []majorId);
+
     List<User> selectAll();
 
-    int updateByPrimaryKey(User record);
+    Integer updateByPrimaryKey(User record);
 
     UserVo selectAllInfoByPrimaryKey(Integer id);
 

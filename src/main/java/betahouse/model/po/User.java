@@ -1,6 +1,8 @@
 package betahouse.model.po;
 
 
+import betahouse.model.vo.UserVo;
+
 public class User {
     private Integer id;
 
@@ -22,8 +24,21 @@ public class User {
 
     private String political;
 
+    public User(){
 
-    //get set
+    }
+    public User(UserVo userVo){
+        this.id = userVo.getId();
+        this.classId = userVo.getUclass().getId();
+        this.majorId = userVo.getMajor().getId();
+        this.realName = userVo.getRealName();
+        this.schoolId = userVo.getSchoolId();
+        this.gender = userVo.getGender();
+        this.photo = userVo.getPhoto();
+        this.entranceTime = userVo.getEntranceTime();
+        this.dormitoryId = userVo.getDormitory().getId();
+        this.political = userVo.getPolitical();
+    }
 
 
     public Integer getId() {

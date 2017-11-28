@@ -36,6 +36,8 @@ public class UserSkillServiceImpl implements UserSkillService {
 
     @Override
     public List<UserSkill> SelectUserSkillByUserIdAndTerm(Integer userId, Integer term) {
-        return userSkillMapper.selectByUserIdAndTerm(userId,term);
+        if(term!=000000)
+            return userSkillMapper.selectByUserIdAndTerm(userId,term);
+        return userSkillMapper.selectByUserId(userId);
     }
 }

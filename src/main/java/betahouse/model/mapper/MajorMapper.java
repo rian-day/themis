@@ -11,6 +11,7 @@ public interface MajorMapper {
     int insert(Major record);
 
     Major selectByPrimaryKey(Integer id);
+    List<Major> selectPrimaryKeyInArr(Integer []arr);
 
     List<Major> selectAll();
 

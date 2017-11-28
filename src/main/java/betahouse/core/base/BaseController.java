@@ -1,6 +1,6 @@
 package betahouse.core.base;
 
-import betahouse.controller.AdminConstant;
+import betahouse.controller.constant.AdminConstant;
 import betahouse.model.po.Admin;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +52,14 @@ public class BaseController {
             pw.close();
         }
 
+    }
+
+    protected static String toJSONString(Object object,String resultMsg,Integer resultCode){
+        Map map = new HashMap();
+        map.put("data",object);
+        map.put("resultMsg", resultMsg);
+        map.put("resultCode", resultCode);
+        return JSON.toJSONString(map);
     }
 
 

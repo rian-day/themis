@@ -38,6 +38,9 @@ public class UserHonorServiceImpl implements UserHonorService {
 
     @Override
     public List<UserHonor> SelectUserHonorByUserIdAndTerm(Integer userId, Integer term) {
-        return userHonorMapper.selectByUserIdAndTerm(userId,term);
+        if(term!=000000)
+            return userHonorMapper.selectByUserIdAndTerm(userId,term);
+
+        return userHonorMapper.selectByUserId(userId);
     }
 }

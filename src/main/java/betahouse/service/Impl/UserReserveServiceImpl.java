@@ -36,6 +36,9 @@ public class UserReserveServiceImpl implements UserReserveService {
 
     @Override
     public List<UserReserve> SelectUserReserveByUserIdAndTerm(Integer userId, Integer term) {
-        return userReserveMapper.selectByUserIdAndTerm(userId, term);
+        if(term!=000000){
+            return userReserveMapper.selectByUserIdAndTerm(userId, term);
+        }
+        return userReserveMapper.selectByUserId(userId);
     }
 }

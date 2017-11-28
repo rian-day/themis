@@ -179,15 +179,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select
-      u.id AS id,
-      u.real_name AS real_name,
-      u.school_id AS school_id,
-      u.gender AS gender,
-      m.id AS id,
-      m.major_name AS major_name,
-      m.year AS year
-    from user u , major m
+    SELECT * FROM user
   </select>
 
   <select id="selectAllInfoByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
@@ -210,4 +202,20 @@
     <select id="selectTest" resultMap="BaseResultMap">
       SELECT * FROM user
     </select>
+
+  <select id="selectByClasses" resultMap="BaseResultMap">
+    SELECT * FROM user
+    where class_id in
+    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <select id="selectByMajors" resultMap="BaseResultMap">
+    SELECT * FROM user
+    where major_id in
+    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 </mapper>

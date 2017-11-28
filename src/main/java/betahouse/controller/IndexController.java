@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,9 +54,17 @@ public class IndexController extends BaseController{
         return ajaxReturn(response, userVo, 1, "成功拿到");
     }
 
-    @RequestMapping(value = "hyh1")
-    public String test(){
-        return "index";
+    @RequestMapping("/testAfterReturning.do")
+    @ResponseBody
+    public String testAfterReturning(String key){
+
+        return "key=: "+key;
+    }
+    @ResponseBody
+    @RequestMapping("/testAfterReturning01.do")
+    public Integer testAfterReturning01(Integer key){
+
+        return key;
     }
 
 }

@@ -51,6 +51,13 @@
     from user_office
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
+  <select id="selectByUserIdAndTerm" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, office_name, office_lv, start_date, end_date, result, comment,
+    term
+    from user_office
+    where user_id = #{arg0,jdbcType=INTEGER}
+    and term = #{arg1,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, user_id, office_name, office_lv, start_date, end_date, result, comment, 
     term
