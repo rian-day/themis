@@ -37,6 +37,7 @@
 										<h2>任职情况</h2>
 											<div id="office">
 												<table>
+													<thead>
 														<tr>
 															<th>任职名称</th>
 															<th>学期</th>
@@ -46,6 +47,7 @@
 															<th>考核结果</th>
 															<th>备注</th>
 														</tr>
+													</thead>
 													<tbody>
 														<tr v-for="office in offices">
 														<td>{{ office.officeName }}</td>
@@ -63,12 +65,14 @@
 										<h2>活动情况</h2>
 											<div id="activity">
 												<table>
+													<thead>
 														<tr>
 															<th>学期</th>
 															<th>活动时间</th>
 															<th>活动名称</th>
 															<th>备注</th>
 														</tr>
+													</thead>
 													<tbody>
 														<tr v-for="activity in activities">
 														<td>{{ activity.term }}</td>
@@ -83,6 +87,7 @@
 										<h2>社会实践情况</h2>
 											<div id="practice">
 												<table>
+													<thead>
 														<tr>
 															<th>学期</th>
 															<th>实践时间</th>
@@ -90,6 +95,7 @@
 															<th>考核结果</th>
 															<th>备注</th>
 														</tr>
+													</thead>
 													<tbody>
 														<tr v-for="practice in practices">
 														<td>{{ practice.term }}</td>
@@ -105,6 +111,7 @@
 										<h2>志愿服务情况</h2>
 											<div id="voluteer">
 												<table>
+													<thead>
 														<tr>
 															<th>学期</th>
 															<th>志愿时间</th>
@@ -112,13 +119,14 @@
 															<th>志愿时长</th>
 															<th>备注</th>
 														</tr>
+													</thead>
 													<tbody>
-														<tr v-for="voluteer in voluteers">
-														<td>{{ voluteer.term }}</td>
-														<td>{{ voluteer.volunteerDate }}</td>
-														<td>{{ voluteer.volunteerName }}</td>
-														<td>{{ voluteer.volunteerTime }}</td>
-														<td>{{ voluteer.comment }}</td>
+														<tr v-for="volunteer in volunteers">
+														<td>{{ volunteer.term }}</td>
+														<td>{{ volunteer.volunteerDate }}</td>
+														<td>{{ volunteer.volunteerName }}</td>
+														<td>{{ volunteer.volunteerTime }}</td>
+														<td>{{ volunteer.comment }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -127,11 +135,13 @@
 										<h2>卫生得分情况</h2>
 											<div id="clean">
 												<table>
+													<thead>
 														<tr>
 															<th>学期</th>
 															<th>检查时间</th>
 															<th>分数</th>
 														</tr>
+													</thead>
 													<tbody>
 														<tr v-for="clean in cleans">
 														<td>{{ clean.term }}</td>
@@ -145,12 +155,14 @@
 										<h2>获奖情况</h2>
 											<div id="honor">
 												<table>
+													<thead>
 														<tr>
 															<th>学期</th>
 															<th>荣誉名称</th>
 															<th>荣誉等级</th>
 															<th>荣誉加分</th>
 														</tr>
+													</thead>
 													<tbody>
 														<tr v-for="honor in honors">
 														<td>{{ honor.term }}</td>
@@ -165,12 +177,14 @@
 										<h2>技能加分</h2>
 											<div id="skill">
 												<table>
+													<thead>
 														<tr>
 															<th>学期</th>
 															<th>技能名称</th>
 															<th>技能等级</th>
 															<th>技能加分</th>
 														</tr>
+													</thead>
 													<tbody>
 														<tr v-for="skill in skills">
 														<td>{{ skill.term }}</td>
@@ -205,6 +219,7 @@
  			var qrcode= $('#code').qrcode(content).hide();   
  			var canvas=qrcode.find('canvas').get(0);  
  			$('#qrcode').attr('src',canvas.toDataURL('image/jpg'))  
+            //<![CDATA[
             var data={
                 "SchoolId":15905631
             };
@@ -228,13 +243,13 @@
                         var officeobj = info.userOffices;
                         var activityobj = info.userActivities;
                         var practiceobj = info.userPractices;
-                        var voluteerobj = info.userVolunteers;
+                        var volunteerobj = info.userVolunteers;
                         var cleanobj = info.userCleans;
                         var honorobj = info.userHonors;
                         var skillobj = info.userSkills;
                         console.log(officeobj);
                         console.log(activityobj);
-                        console.log(voluteerobj);
+                        console.log(volunteerobj);
                         var info = new Vue({
                             el: '#info',
                             data: {
@@ -262,7 +277,7 @@
                         var voluteer = new Vue({
                             el: '#voluteer',
                             data: {
-                                voluteers: voluteerobj
+                                volunteers: voluteerobj
                             }
                         })
                         var clean = new Vue({
