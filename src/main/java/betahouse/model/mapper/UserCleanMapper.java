@@ -6,14 +6,16 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 @Component
 public interface UserCleanMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(UserClean record);
 
     UserClean selectByPrimaryKey(Integer id);
     List<UserClean> selectByUserId(Integer userId);
-
+    List<UserClean> selectByUserIdAndTerm(Integer userId,Integer term);
     List<UserClean> selectAll();
 
+    int insert(UserClean record);
+    int insertList(List<UserClean> userCleans);
+
     int updateByPrimaryKey(UserClean record);
+
+    int deleteByPrimaryKey(Integer id);
 }

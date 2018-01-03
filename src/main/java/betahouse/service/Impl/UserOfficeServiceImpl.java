@@ -16,8 +16,7 @@ public class UserOfficeServiceImpl implements UserOfficeService{
     UserOfficeMapper userOfficeMapper;
     @Override
     public int UpdateUserOffice(UserOffice userOffice) {
-        userOfficeMapper.updateByPrimaryKey(userOffice);
-        return 1;
+        return userOfficeMapper.updateByPrimaryKey(userOffice);
     }
 
     @Override
@@ -33,14 +32,17 @@ public class UserOfficeServiceImpl implements UserOfficeService{
 
     @Override
     public int InsertUserOffice(UserOffice userOffice) {
-        userOfficeMapper.insert(userOffice);
-        return 1;
+        return userOfficeMapper.insert(userOffice);
+    }
+
+    @Override
+    public int InsertUserOfficeList(List<UserOffice> userOffices) {
+        return userOfficeMapper.insertList(userOffices);
     }
 
     @Override
     public int DeleteUserOffice(Integer userofficeId) {
-        userOfficeMapper.deleteByPrimaryKey(userofficeId);
-        return 1;
+        return userOfficeMapper.deleteByPrimaryKey(userofficeId);
     }
 
     @Override
@@ -50,4 +52,10 @@ public class UserOfficeServiceImpl implements UserOfficeService{
         }
         return userOfficeMapper.selectByUserId(userId);
     }
+
+    @Override
+    public List<UserOffice> SelectUserOfficeByUserId(Integer userId) {
+        return userOfficeMapper.selectByUserId(userId);
+    }
+
 }

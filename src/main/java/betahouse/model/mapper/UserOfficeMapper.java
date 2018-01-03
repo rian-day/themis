@@ -9,11 +9,11 @@ public interface UserOfficeMapper {
     Integer deleteByPrimaryKey(Integer id);
 
     Integer insert(UserOffice record);
+    Integer insertList(List<UserOffice> userOfficeList);
 
     UserOffice selectByPrimaryKey(Integer id);
     List<UserOffice> selectByUserId(Integer userId);
     List<UserOffice> selectByUserIdAndTerm(Integer userId, Integer term);
-
     List<UserOffice> selectAll();
 
     Integer updateByPrimaryKey(UserOffice record);

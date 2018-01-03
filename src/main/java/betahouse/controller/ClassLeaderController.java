@@ -3,13 +3,11 @@ package betahouse.controller;
 import betahouse.controller.constant.AdminConstant;
 import betahouse.controller.constant.InfoConstant;
 import betahouse.core.base.BaseController;
-import betahouse.model.cod.AdminCod;
+import betahouse.model.dto.AdminDto;
 import betahouse.model.po.*;
-import betahouse.model.po.Class;
 import betahouse.model.vo.UserVo;
 import betahouse.service.*;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,21 +34,14 @@ public class ClassLeaderController extends BaseController{
     UserSkillService userSkillService;
     @Autowired
     UserOfficeService userOfficeService;
-
-    /**
-     * 根据用户Id和学期查找用户任职记录
-     * @param userId
-     * @param term
-     * @return
-     */
-    @ApiOperation(value = "根据用户Id和学期查找用户任职记录")
-    @RequestMapping(value = "selectUserOfficeByUserIdAndTerm")
-    public String selectUserOfficeByUserIdAndTerm(
-            Integer userId, Integer term
-    ){
-        List<UserOffice> userOfficeList=userOfficeService.SelectUserOfficeByUserIdAndTerm(userId,term);
-        return toJSONString(userOfficeList, InfoConstant.SUCCESS, InfoConstant.SUCCESS_CODE);
-    }
+    @Autowired
+    UserActivityService userActivityService;
+    @Autowired
+    UserCleanService userCleanService;
+    @Autowired
+    UserPracticeService userPracticeService;
+    @Autowired
+    UserVolunteerService userVolunteerService;
 
 
     /**
@@ -75,13 +66,13 @@ public class ClassLeaderController extends BaseController{
     public String selectAllUserControlledInPage(
             HttpSession session, Integer pageNum, Integer pageSize
     ){
-        AdminCod adminCod = (AdminCod)session.getAttribute(AdminConstant.SESSION_CURRENT_ADMIN);
-        if(null!=adminCod.getClasses()){
-            PageInfo<UserVo> userVoList = userService.selectAllUserVoByClassInPage(pageNum, pageSize, adminCod.getClasses());
+        AdminDto adminDto = (AdminDto)session.getAttribute(AdminConstant.SESSION_CURRENT_ADMIN);
+        if(null!= adminDto.getClasses()){
+            PageInfo<UserVo> userVoList = userService.selectAllUserVoByClassInPage(pageNum, pageSize, adminDto.getClasses());
             return toJSONString(userVoList,InfoConstant.SUCCESS,InfoConstant.SUCCESS_CODE);
         }
-        if(null!=adminCod.getMajors()){
-            PageInfo<UserVo> userVoList = userService.selectAllUserVoByClassInPage(pageNum, pageSize, adminCod.getClasses());
+        if(null!= adminDto.getMajors()){
+            PageInfo<UserVo> userVoList = userService.selectAllUserVoByMajorInPage(pageNum, pageSize, adminDto.getMajors());
             return toJSONString(userVoList,InfoConstant.SUCCESS,InfoConstant.SUCCESS_CODE);
         }
         return toJSONString(null,"无管理班级",InfoConstant.FAILED_CODE);
@@ -101,7 +92,24 @@ public class ClassLeaderController extends BaseController{
                                  Integer userId
     ){
         User user = userService.selectUserById(userId);
-        return toJSONString(user, InfoConstant.SUCCESS, InfoConstant.SUCCESS_CODE);
+        AdminDto adminDto = getCurrentUser(request);
+        if(null!=adminDto.getClasses()){
+            List<UserVo> userVoList = userService.selectAllUserVoByClass(adminDto.getClasses());
+            for(int i=0;i<userVoList.size();i++){
+                if(userVoList.get(i).getId()==userId){
+                    return toJSONString(userVoList.get(i),InfoConstant.SUCCESS,InfoConstant.SUCCESS_CODE);
+                }
+            }
+        }
+        if(null!=adminDto.getMajors()){
+            List<UserVo> userVoList = userService.selectAllUserVoByMajor(adminDto.getMajors());
+            for(int i=0;i<userVoList.size();i++){
+                if(userVoList.get(i).getId()==userId){
+                    return toJSONString(userVoList.get(i),InfoConstant.SUCCESS,InfoConstant.SUCCESS_CODE);
+                }
+            }
+        }
+        return toJSONString(null, "无此用户或不在管辖权限内", InfoConstant.FAILED_CODE);
     }
 
     /**
@@ -116,22 +124,9 @@ public class ClassLeaderController extends BaseController{
         return userService.updateUserPolitical(userId,political);
     }
 
-    /**
-     * 查找对应用户的额外加分按学期
-     * @param response
-     * @param session
-     * @param userId
-     * @param term
-     * @return
-     */
-    @ApiOperation(value = "查找对应用户的额外加分按学期")
-    @RequestMapping(value = "selectUserReserveByUserIdAndTerm")
-    public String selectUserReserveByUserIdAndTerm(HttpServletResponse response, HttpSession session,
-                                            Integer userId, Integer term){
-        Admin admin = (Admin)session.getAttribute(AdminConstant.SESSION_CURRENT_ADMIN);
-        List<UserReserve> userReserves = userReserveService.SelectUserReserveByUserIdAndTerm(userId, term);
-        return toJSONString(userReserves, InfoConstant.SUCCESS, InfoConstant.SUCCESS_CODE);
-    }
+
+
+
     @ApiOperation(value = "新增用户reserve")
     @RequestMapping(value = "insertUserReserve")
     public Integer insertUserReserve(UserReserve userReserve){
@@ -148,15 +143,7 @@ public class ClassLeaderController extends BaseController{
         return userReserveService.DeleteUserReserveById(userReserveId);
     }
 
-    @ApiOperation(value = "查找用户Honor", notes = "根据用户Id和学期")
-    @RequestMapping(value = "selectUserHonorByUserId")
-    public String selectUserHonorByUserId(
-                                          Integer userId, Integer term
-    ){
-        List<UserHonor> userHonors = userHonorService.SelectUserHonorByUserIdAndTerm(userId,term);
-        return toJSONString(userHonors, InfoConstant.SUCCESS, InfoConstant.SUCCESS_CODE);
-    }
-    @ApiOperation(value = "新增用户Honor")
+    @ApiOperation(value = "新增用户荣誉分")
     @RequestMapping(value = "insertUserHonor")
     public Integer insertUserHonor(UserHonor userHonor){
         return userHonorService.InsertUserHonor(userHonor);
@@ -172,22 +159,9 @@ public class ClassLeaderController extends BaseController{
         return userHonorService.DeleteUserHonor(userHonorId);
     }
 
-    /**
-     * 用户技能分管理
-     * @param response
-     * @param userId
-     * @return
-     */
-    @ApiOperation(value = "查找用户技能分", notes = "根据用户Id和学期")
-    @RequestMapping(value = "selectUserSkillByUserIdAndTerm")
-    public String selectUserSkillByUserId(HttpServletResponse response,
-                                          Integer userId, Integer term){
-        List<UserSkill> userSkills = userSkillService.SelectUserSkillByUserIdAndTerm(userId, term);
-        return ajaxReturn(response, userSkills);
-    }
     @ApiOperation(value = "新增用户技能分")
     @RequestMapping(value = "insertUserSkill")
-    public Integer insertUserSkill(UserSkill userSkill){
+    public Integer insertUserReserve(UserSkill userSkill){
         return userSkillService.InsertUserSkill(userSkill);
     }
     @ApiOperation(value = "更新用户技能分")
@@ -195,7 +169,7 @@ public class ClassLeaderController extends BaseController{
     public Integer updateUserSkill(UserSkill userSkill){
         return userSkillService.UpdateUserSkill(userSkill);
     }
-    @ApiOperation(value = "删除用户技能分", notes = "根据用户Id")
+    @ApiOperation(value = "删除用户技能分")
     @RequestMapping(value = "deleteUserSkill")
     public Integer deleteUserSkill(Integer userSkillId){
         return userSkillService.DeleteUserSkill(userSkillId);

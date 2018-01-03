@@ -20,14 +20,12 @@ public class UserHonorServiceImpl implements UserHonorService {
 
     @Override
     public Integer InsertUserHonor(UserHonor userHonor) {
-        userHonorMapper.insert(userHonor);
-        return 1;
+        return userHonorMapper.insert(userHonor);
     }
 
     @Override
     public Integer DeleteUserHonor(Integer userHonorId) {
-        userHonorMapper.deleteByPrimaryKey(userHonorId);
-        return 1;
+        return userHonorMapper.deleteByPrimaryKey(userHonorId);
     }
 
     @Override

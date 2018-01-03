@@ -11,9 +11,7 @@ public interface ClassMapper {
     int insert(Class record);
 
     Class selectByPrimaryKey(Integer id);
-
     List<Class> selectPrimaryKeyInArr(Integer []arr);
-
     List<Class> selectAll();
 
     int updateByPrimaryKey(Class record);

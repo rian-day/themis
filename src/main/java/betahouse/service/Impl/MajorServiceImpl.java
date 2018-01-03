@@ -30,4 +30,14 @@ public class MajorServiceImpl implements MajorService {
         }
         return majorMapper.selectPrimaryKeyInArr(arr);
     }
+
+    @Override
+    public List<Major> selectAll() {
+        return majorMapper.selectAll();
+    }
+
+    @Override
+    public Major selectByMajorId(Integer id) {
+        return majorMapper.selectByPrimaryKey(id);
+    }
 }

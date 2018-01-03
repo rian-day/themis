@@ -21,6 +21,16 @@
       #{activityDate,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{term,jdbcType=INTEGER}
       )
   </insert>
+  <insert id="insertGroup" parameterType="java.util.List">
+    insert into user_activity (id, user_id, activity_name,
+    activity_date, comment, term
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator="," close=";">
+      (#{item.id,jdbcType=INTEGER}, #{item.userId,jdbcType=INTEGER}, #{item.activityName,jdbcType=VARCHAR},
+      #{item.activityDate,jdbcType=VARCHAR}, #{item.comment,jdbcType=VARCHAR}, #{item.term,jdbcType=INTEGER})
+    </foreach>
+  </insert>
   <update id="updateByPrimaryKey" parameterType="betahouse.model.po.UserActivity">
     update user_activity
     set user_id = #{userId,jdbcType=INTEGER},
@@ -39,6 +49,12 @@
     select id, user_id, activity_name, activity_date, comment, term
     from user_activity
     where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserIdAndTerm" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, activity_name, activity_date, comment, term
+    from user_activity
+    where user_id = #{arg0,jdbcType=INTEGER}
+    and term = #{arg1,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, user_id, activity_name, activity_date, comment, term

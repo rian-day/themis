@@ -1,5 +1,7 @@
 package betahouse.model.po;
 
+import betahouse.model.xo.UserOfficeXo;
+
 public class UserOffice {
     private Integer id;
 
@@ -18,6 +20,19 @@ public class UserOffice {
     private String comment;
 
     private Integer term;
+
+    public UserOffice(UserOfficeXo userOfficeXo){
+        this.comment = userOfficeXo.getComment();
+        this.officeName = userOfficeXo.getOfficeName();
+        this.officeLv = userOfficeXo.getOfficeLv();
+        this.startDate = userOfficeXo.getStartDate();
+        this.endDate = userOfficeXo.getEndDate();
+        this.result = userOfficeXo.getResult();
+        this.term = userOfficeXo.getTerm();
+    }
+    public UserOffice(){
+
+    }
 
     public Integer getId() {
         return id;

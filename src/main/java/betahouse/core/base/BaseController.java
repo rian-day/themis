@@ -1,7 +1,7 @@
 package betahouse.core.base;
 
 import betahouse.controller.constant.AdminConstant;
-import betahouse.model.po.Admin;
+import betahouse.model.dto.AdminDto;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,9 +72,9 @@ public class BaseController {
 
 
 
-    protected Admin getCurrentUser(HttpServletRequest request) {
+    protected AdminDto getCurrentUser(HttpServletRequest request) {
 
-        Admin adminDTO = (Admin) getHttpSession(request).getAttribute(AdminConstant.SESSION_CURRENT_ADMIN);
+        AdminDto adminDTO = (AdminDto) getHttpSession(request).getAttribute(AdminConstant.SESSION_CURRENT_ADMIN);
 
         return adminDTO;
 

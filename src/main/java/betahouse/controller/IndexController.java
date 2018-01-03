@@ -27,7 +27,7 @@ public class IndexController extends BaseController{
     public UserService userService;
     @RequestMapping(value = {"index"})
     public String ajax(HttpServletRequest request, HttpServletResponse response, Model model){
-        return "elements";
+        return "index";
     }
     //TODO 对传过来的SchoolId进行base64解密
     @RequestMapping(value = {"demo"})
@@ -38,8 +38,8 @@ public class IndexController extends BaseController{
         model.addAttribute("userVo",userVo);
         //model.addAttribute("enCode",enCode_base64(SchoolId));
         //
-//        return "elements";
-        return ajaxReturn(response,userVo,1, null);
+        return "elements";
+        //return ajaxReturn(response,userVo,1, null);
     }
     //TODO 对传过来的SchoolId进行base64解密
     @RequestMapping(value = {"getInfo"}, method = POST)

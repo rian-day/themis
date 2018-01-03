@@ -8,14 +8,11 @@ import java.util.List;
 public interface AdminMapper {
     int deleteByPrimaryKey(Integer id);
 
-    Admin selectByUserName(String userName);
-
-    Admin selectByUserEmail(String email);
-
     int insert(Admin record);
 
+    Admin selectByUserName(String userName);
+    Admin selectByUserEmail(String email);
     Admin selectByPrimaryKey(Integer id);
-
     List<Admin> selectAll();
 
     int updateByPrimaryKey(Admin record);

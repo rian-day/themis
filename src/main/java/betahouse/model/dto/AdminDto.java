@@ -1,4 +1,4 @@
-package betahouse.model.cod;
+package betahouse.model.dto;
 
 import betahouse.model.po.Admin;
 import betahouse.model.po.Major;
@@ -6,7 +6,7 @@ import betahouse.model.po.Class;
 
 import java.util.List;
 
-public class AdminCod {
+public class AdminDto {
     private Integer id;
 
     private String username;
@@ -23,7 +23,7 @@ public class AdminCod {
 
     private List<Major> majors;
 
-    public AdminCod(Admin admin){
+    public AdminDto(Admin admin){
         this.id=admin.getId();
         this.username=admin.getUsername();
         this.password=admin.getPassword();

@@ -13,20 +13,17 @@ public class UserSkillServiceImpl implements UserSkillService {
     UserSkillMapper userSkillMapper;
     @Override
     public Integer UpdateUserSkill(UserSkill userSkill) {
-        userSkillMapper.updateByPrimaryKey(userSkill);
-        return 1;
+        return userSkillMapper.updateByPrimaryKey(userSkill);
     }
 
     @Override
     public Integer InsertUserSkill(UserSkill userSkill) {
-        userSkillMapper.insert(userSkill);
-        return 1;
+        return userSkillMapper.insert(userSkill);
     }
 
     @Override
     public Integer DeleteUserSkill(Integer userSkillId) {
-        userSkillMapper.deleteByPrimaryKey(userSkillId);
-        return 1;
+        return userSkillMapper.deleteByPrimaryKey(userSkillId);
     }
 
     @Override

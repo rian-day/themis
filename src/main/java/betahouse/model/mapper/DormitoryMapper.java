@@ -11,6 +11,7 @@ public interface DormitoryMapper {
     int insert(Dormitory record);
 
     Dormitory selectByPrimaryKey(Integer id);
+    Dormitory selectByBuildingAndFloorAndRoom(Integer building,Integer floor,Integer room);
 
     List<Dormitory> selectAll();
 

@@ -14,17 +14,17 @@ public class UserVo {
     //性别
     private String gender;
 
-    //private Integer majorId;
+    private Integer majorId;
     private Major major; //majorId
 
-    //private Integer classId;
-    private ClassVo uclass;
+    private Integer classId;
+    private Class uclass;
 
     private String photo;
 
     private String entranceTime;
 
-    //private Integer dormitoryId;
+    private Integer dormitoryId;
     private Dormitory dormitory;
 
     private String political;
@@ -53,10 +53,43 @@ public class UserVo {
         this.photo=user.getPhoto();
         this.entranceTime=user.getEntranceTime();
         this.political=user.getPolitical();
+        this.uclass = new Class();
+        this.uclass.setId(user.getClassId());
+        this.classId = user.getClassId();
+        this.major = new Major();
+        this.major.setId(user.getMajorId());
+        this.majorId = user.getMajorId();
+        this.dormitory = new Dormitory();
+        this.dormitory.setId(user.getDormitoryId());
+        this.dormitoryId = user.getDormitoryId();
     }
 
     public UserVo(){
 
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
+    }
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
+
+    public Integer getDormitoryId() {
+        return dormitoryId;
+    }
+
+    public void setDormitoryId(Integer dormitoryId) {
+        this.dormitoryId = dormitoryId;
     }
 
     public Integer getId() {
@@ -99,11 +132,11 @@ public class UserVo {
         this.major = major;
     }
 
-    public ClassVo getUclass() {
+    public Class getUclass() {
         return uclass;
     }
 
-    public void setUclass(ClassVo uclass) {
+    public void setUclass(Class uclass) {
         this.uclass = uclass;
     }
 

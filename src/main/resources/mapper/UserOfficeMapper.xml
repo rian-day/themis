@@ -26,6 +26,19 @@
       #{result,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{term,jdbcType=INTEGER}
       )
   </insert>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into user_office (id, user_id, office_name,
+    office_lv, start_date, end_date,
+    result, comment, term
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator="," close=";">
+      (#{item.id,jdbcType=INTEGER}, #{item.userId,jdbcType=INTEGER}, #{item.officeName,jdbcType=VARCHAR},
+      #{item.officeLv,jdbcType=INTEGER}, #{item.startDate,jdbcType=VARCHAR}, #{item.endDate,jdbcType=VARCHAR},
+      #{item.result,jdbcType=INTEGER}, #{item.comment,jdbcType=VARCHAR}, #{item.term,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
   <update id="updateByPrimaryKey" parameterType="betahouse.model.po.UserOffice">
     update user_office
     set user_id = #{userId,jdbcType=INTEGER},

@@ -1,5 +1,7 @@
 package betahouse.model.po;
 
+import betahouse.model.xo.UserActivityXo;
+
 public class UserActivity {
     private Integer id;
 
@@ -12,6 +14,16 @@ public class UserActivity {
     private String comment;
 
     private Integer term;
+
+    public UserActivity(UserActivityXo userActivityXo){
+        this.activityName = userActivityXo.getActivityName();
+        this.activityDate = userActivityXo.getActivityDate();
+        this.comment = userActivityXo.getComment();
+        this.term = userActivityXo.getTerm();
+        this.comment = userActivityXo.getComment();
+    }
+    public UserActivity(){}
+
 
     public Integer getId() {
         return id;

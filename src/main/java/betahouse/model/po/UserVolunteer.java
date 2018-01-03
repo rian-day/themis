@@ -1,5 +1,7 @@
 package betahouse.model.po;
 
+import betahouse.model.xo.UserVolunteerXo;
+
 public class UserVolunteer {
     private Integer id;
 
@@ -15,6 +17,16 @@ public class UserVolunteer {
 
     private Integer term;
 
+    public UserVolunteer(){
+
+    }
+    public UserVolunteer(UserVolunteerXo userVolunteerXo){
+        this.volunteerName = userVolunteerXo.getVolunteerName();
+        this.volunteerDate = userVolunteerXo.getVolunteerDate();
+        this.volunteerTime = userVolunteerXo.getVolunteerTime();
+        this.comment = userVolunteerXo.getComment();
+        this.term = userVolunteerXo.getTerm();
+    }
     public Integer getId() {
         return id;
     }

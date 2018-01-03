@@ -33,15 +33,15 @@
       <result property="majorName" column="major_name"/>
       <result property="year" column="year"/>
     </association>
-    <association property="uclass" javaType="betahouse.model.vo.ClassVo">
+    <association property="uclass" javaType="betahouse.model.po.Class">
       <id property="id" column="c_id" jdbcType="INTEGER"/>
       <result property="classNum" column="class_num"/>
       <result property="className" column="class_name"/>
-      <association property="major" javaType="betahouse.model.po.Major">
+      <!--<association property="major" javaType="betahouse.model.po.Major">
         <id property="id" column="m_id" jdbcType="INTEGER"/>
         <result property="majorName" column="major_name"/>
         <result property="year" column="year"/>
-      </association>
+      </association>-->
     </association>
     <collection property="userActivities" javaType="list" ofType="betahouse.model.po.UserActivity">
       <id property="id" column="ua_id"/>
@@ -115,7 +115,7 @@
       , uh.id uh_id , uh.honor_name honor_name, uh.honor_score honor_score, uh.honor_lv honor_lv, uh.term uh_term
       , uo.id uo_id , uo.office_name , uo.office_lv , uo.start_date , uo.end_date , uo.result uo_result, uo.comment uo_comment , uo.term uo_term
       , up.id up_id , up.term up_term , up.practice_name , up.practice_date , up.result up_result, up.comment up_comment
-      , ur.id ur_id , ur.score ur_score , ur.term ur_term
+      , ur.id ur_id , ur.score ur_score , ur.term ur_term , ur.cause
       , us.id us_id , us.term us_term , us.skill_lv , us.skill_name , us.skill_score
       , uv.id uv_id , uv.term uv_term , uv.volunteer_name , uv.volunteer_date , uv.volunteer_time , uv.comment uv_comment
 
@@ -160,6 +160,20 @@
       #{photo,jdbcType=VARCHAR}, #{entranceTime,jdbcType=VARCHAR}, #{dormitoryId,jdbcType=INTEGER},
       #{political,jdbcType=VARCHAR})
   </insert>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into user (id, real_name, school_id,
+    gender, major_id, class_id,
+    photo, entrance_time, dormitory_id,
+    political)
+    values
+    <foreach collection="list" item="item" index="index" separator="," close=";">
+      (#{item.id,jdbcType=INTEGER}, #{item.realName,jdbcType=VARCHAR}, #{item.schoolId,jdbcType=VARCHAR},
+      #{item.gender,jdbcType=VARCHAR}, #{item.majorId,jdbcType=INTEGER}, #{item.classId,jdbcType=INTEGER},
+      #{item.photo,jdbcType=VARCHAR}, #{item.entranceTime,jdbcType=VARCHAR}, #{item.dormitoryId,jdbcType=INTEGER},
+      #{item.political,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
   <update id="updateByPrimaryKey" parameterType="betahouse.model.po.User">
     update user
     set real_name = #{realName,jdbcType=VARCHAR},
@@ -180,6 +194,13 @@
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT * FROM user
+  </select>
+  <select id="selectUserInSchoolIds" resultMap="BaseResultMap">
+    SELECT * FROM user
+    WHERE school_id in
+    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
   </select>
 
   <select id="selectAllInfoByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
@@ -210,6 +231,10 @@
       #{item}
     </foreach>
   </select>
+  <select id="selectByDormitoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT * FROM user
+    where dormitory_id = #{dormitoryId,jdbcType=INTEGER}
+  </select>
 
   <select id="selectByMajors" resultMap="BaseResultMap">
     SELECT * FROM user
@@ -217,5 +242,13 @@
     <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
       #{item}
     </foreach>
+  </select>
+  <select id="selectAllUserVo" resultMap="AllResultMap">
+    <include refid="selectByAllTable"/>
+  </select>
+  <select id="selectByShcoolId" resultMap="BaseResultMap">
+    select *
+    from user
+    where school_id = #{schoolId,jdbcType=INTEGER}
   </select>
 </mapper>

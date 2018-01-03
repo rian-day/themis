@@ -21,7 +21,7 @@ import java.util.Map;
 @Aspect
 public class WebControllerAop {
 
-    private final static Logger logger = LoggerFactory.getLogger(ClassLeaderAop.class);
+    private final static Logger logger = LoggerFactory.getLogger(WebControllerAop.class);
 
     //匹配com.zkn.learnspringboot.web.controller包及其子包下的所有类的所有方法
     @Pointcut("execution(* betahouse.controller..*.*(..))")
@@ -33,7 +33,7 @@ public class WebControllerAop {
 
     @Before("executeService()")
     public void doBeforeAdvice(JoinPoint joinPoint){
-        logger.debug("前置通知!!!");
+        logger.info("前置通知!!!");
         //获取目标方法的参数信息
         Object[] obj = joinPoint.getArgs();
         //AOP代理类的信息
@@ -43,9 +43,9 @@ public class WebControllerAop {
         //用的最多 通知的签名
         Signature signature = joinPoint.getSignature();
         //代理的是哪一个方法
-        logger.debug("代理方法名:"+signature.getName());
+        logger.info("代理方法名:"+signature.getName());
         //AOP代理类的名字
-        logger.debug("代理类名:"+signature.getDeclaringTypeName());
+        logger.info("代理类名:"+signature.getDeclaringTypeName());
         //AOP代理类的类（class）信息
         signature.getDeclaringType();
         //获取RequestAttributes
@@ -62,7 +62,7 @@ public class WebControllerAop {
         }
         String str = JSON.toJSONString(parameterMap);
         if(obj.length > 0) {
-            logger.debug("请求的参数信息为："+str);
+            logger.info("请求的参数信息为："+str);
         }
     }
 

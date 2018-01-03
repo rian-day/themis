@@ -6,6 +6,8 @@ import betahouse.service.UserPracticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserPracticeServiceImpl implements UserPracticeService{
     @Autowired
@@ -13,19 +15,30 @@ public class UserPracticeServiceImpl implements UserPracticeService{
 
     @Override
     public int UpdateUserPractice(UserPractice userPractice) {
-        userPracticeMapper.updateByPrimaryKey(userPractice);
-        return 1;
+        return userPracticeMapper.updateByPrimaryKey(userPractice);
     }
 
     @Override
     public int InsertUserPractice(UserPractice userPractice) {
-        userPracticeMapper.insert(userPractice);
-        return 1;
+        return userPracticeMapper.insert(userPractice);
     }
 
     @Override
     public int DeleteUserPractice(Integer userPracticeId) {
-        userPracticeMapper.deleteByPrimaryKey(userPracticeId);
-        return 1;
+        return userPracticeMapper.deleteByPrimaryKey(userPracticeId);
+    }
+
+    @Override
+    public List<UserPractice> SelectUserPracticeByUserId(Integer userId) {
+
+        return userPracticeMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public List<UserPractice> SelectUserPracticeByUserIdAndTerm(Integer userId, Integer term) {
+        if(term!=000000)
+            return userPracticeMapper.selectByUserIdAndTerm(userId,term);
+
+        return userPracticeMapper.selectByUserId(userId);
     }
 }

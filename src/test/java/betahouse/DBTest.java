@@ -7,6 +7,7 @@ import betahouse.model.po.Class;
 import betahouse.model.vo.ClassVo;
 import betahouse.model.vo.UserVo;
 import betahouse.service.UserReserveService;
+import betahouse.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +25,10 @@ import java.util.List;
 public class DBTest {
     @Autowired
     UserReserveService userReserveService;
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    UserService userService;
     @Test
     public void selectUserReserveByUserId(){
         List<UserReserve> userReserves = userReserveService.SelectUserReserveByUserIdAndTerm(1, 201702);
@@ -45,9 +50,7 @@ public class DBTest {
             userVo.setMajor(sqlSession.getMapper(MajorMapper.class).selectByPrimaryKey(user.getMajorId()));
             //设置班级
             Class uclass= sqlSession.getMapper(ClassMapper.class).selectByPrimaryKey(user.getClassId());
-            ClassVo classVo = new ClassVo(uclass);
-            classVo.setMajor(userVo.getMajor());
-            userVo.setUclass(classVo);
+            userVo.setUclass(uclass);
             //设置寝室
             DormitoryMapper dormitoryMapper = sqlSession.getMapper(DormitoryMapper.class);
             userVo.setDormitory(dormitoryMapper.selectByPrimaryKey(user.getDormitoryId()));
@@ -66,5 +69,33 @@ public class DBTest {
         pageInfo.setList(list);
 
         System.out.println(1);
+    }
+
+    @Test
+    public void ListUserInsert(){
+        List<User> userList = new ArrayList<>();
+        User user = new User();
+        user.setSchoolId("16");
+        user.setRealName("组插入1");
+        userList.add(user);
+        user = new User();
+        user.setRealName("组插入2");
+        userList.add(user);
+        user.setSchoolId("16");
+        userMapper.insertList(userList);
+    }
+
+    @Test
+    public void selectUserInSchoolIds(){
+        List<User> result = userMapper.selectUserInSchoolIds(new String[]{"16","16905413"});
+        System.out.println(1);
+    }
+
+    @Test
+    public void transactionalTest(){
+        PageHelper.startPage(0, 2);
+        List<User> users = userService.selectAllUser();
+        PageInfo<User> p=new PageInfo<User>(users);
+        System.out.println("1");
     }
 }

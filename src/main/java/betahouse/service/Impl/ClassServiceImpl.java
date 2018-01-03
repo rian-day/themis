@@ -29,4 +29,14 @@ public class ClassServiceImpl implements ClassService {
         }
         return classMapper.selectPrimaryKeyInArr(arr);
     }
+
+    @Override
+    public Class selectClassByClassId(Integer id) {
+        return classMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Class> selectAll() {
+        return classMapper.selectAll();
+    }
 }

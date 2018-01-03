@@ -13,7 +13,6 @@ public interface UserSkillMapper {
     UserSkill selectByPrimaryKey(Integer id);
     List<UserSkill> selectByUserId(Integer userId);
     List<UserSkill> selectByUserIdAndTerm(Integer userId,Integer term);
-
     List<UserSkill> selectAll();
 
     int updateByPrimaryKey(UserSkill record);

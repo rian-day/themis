@@ -13,7 +13,6 @@ public interface UserReserveMapper {
     UserReserve selectByPrimaryKey(Integer id);
     List<UserReserve> selectByUserId(Integer userId);
     List<UserReserve> selectByUserIdAndTerm(Integer userId,Integer term);
-
     List<UserReserve> selectAll();
 
     int updateByPrimaryKey(UserReserve record);

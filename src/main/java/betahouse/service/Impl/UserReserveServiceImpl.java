@@ -13,20 +13,17 @@ public class UserReserveServiceImpl implements UserReserveService {
     UserReserveMapper userReserveMapper;
     @Override
     public Integer UpdateUserReserve(UserReserve userReserve) {
-        userReserveMapper.updateByPrimaryKey(userReserve);
-        return 1;
+        return userReserveMapper.updateByPrimaryKey(userReserve);
     }
 
     @Override
     public Integer InsertUserReserve(UserReserve userReserve) {
-        userReserveMapper.insert(userReserve);
-        return 1;
+        return userReserveMapper.insert(userReserve);
     }
 
     @Override
     public Integer DeleteUserReserveById(Integer userReserveId) {
-        userReserveMapper.deleteByPrimaryKey(userReserveId);
-        return 1;
+        return userReserveMapper.deleteByPrimaryKey(userReserveId);
     }
 
     @Override

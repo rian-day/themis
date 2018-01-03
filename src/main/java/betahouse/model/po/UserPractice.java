@@ -1,5 +1,7 @@
 package betahouse.model.po;
 
+import betahouse.model.xo.UserPracticeXo;
+
 public class UserPractice {
     private Integer id;
 
@@ -14,6 +16,17 @@ public class UserPractice {
     private String comment;
 
     private Integer term;
+
+    public UserPractice(){
+
+    }
+
+    public UserPractice(UserPracticeXo userPracticeXo){
+        this.practiceName = userPracticeXo.getPracticeName();
+        this.practiceDate = userPracticeXo.getPracticeDate();
+        this.term = userPracticeXo.getTerm();
+        this.comment = userPracticeXo.getComment();
+    }
 
     public Integer getId() {
         return id;

@@ -1,6 +1,5 @@
 package betahouse.service.Impl;
 
-import betahouse.model.cod.AdminCod;
 import betahouse.model.mapper.Power1Mapper;
 import betahouse.model.po.Power1;
 import betahouse.service.Power1Service;

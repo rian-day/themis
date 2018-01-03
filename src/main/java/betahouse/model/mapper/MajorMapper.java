@@ -12,7 +12,6 @@ public interface MajorMapper {
 
     Major selectByPrimaryKey(Integer id);
     List<Major> selectPrimaryKeyInArr(Integer []arr);
-
     List<Major> selectAll();
 
     int updateByPrimaryKey(Major record);

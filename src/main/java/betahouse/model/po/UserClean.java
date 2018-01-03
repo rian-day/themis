@@ -1,5 +1,7 @@
 package betahouse.model.po;
 
+import betahouse.model.xo.UserCleanXo;
+
 public class UserClean {
     private Integer id;
 
@@ -10,6 +12,12 @@ public class UserClean {
     private Double score;
 
     private Integer term;
+
+    public UserClean(UserCleanXo userCleanXo){
+        this.checkDate = userCleanXo.getCheckDate();
+        this.score = userCleanXo.getScore();
+        this.term = userCleanXo.getTerm();
+    }
 
     public Integer getId() {
         return id;

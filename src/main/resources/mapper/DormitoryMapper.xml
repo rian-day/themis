@@ -33,4 +33,11 @@
     select id, building, floor, room
     from dormitory
   </select>
+  <select id="selectByBuildingAndFloorAndRoom" resultMap="BaseResultMap">
+    select id, building, floor, room
+    from dormitory
+    where building = #{arg0,jdbcType=INTEGER}
+    and floor = #{arg1,jdbcType=INTEGER}
+    and room = #{arg2,jdbcType=INTEGER}
+  </select>
 </mapper>
